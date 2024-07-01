@@ -10,6 +10,16 @@
     require_once "../api/db.php";
     $query = $conn->query("SELECT COUNT(*) as nombre FROM personnel");
     $nbrMembres = $query->fetch();
+    $query2 = $conn->query("SELECT COUNT(*) as nombre FROM tache");
+    $nbrTaches = $query2->fetch();
+    $query3 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE cin != ''");
+    $nbrTacheOccuper = $query3->fetch();
+    $query4 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'L'");
+    $nbrTacheLibre = $query4->fetch();
+    $query5 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'E'");
+    $nbrTacheEnCours = $query5->fetch();
+    $query6 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'F'");
+    $nbrTacheFin = $query6->fetch();
 ?>
 <head>
     <meta charset="UTF-8">
