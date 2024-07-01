@@ -48,7 +48,7 @@
     </div>
     <div class="card carte">
         <div class="text-content">
-            <span>Tache auccuper</span>
+            <span>Tache occuper</span>
             <span><?= $nbrTacheOccuper["nombre"] ?></span>
         </div>
         <i class="fa fa-hourglass-half icon"></i>
