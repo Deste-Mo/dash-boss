@@ -1,4 +1,50 @@
 <style>
+    .modal-content, .btnTab {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .form-control {
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-primary {
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover{
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .btnTab{ transition: 0.3s ease-in-out }
+
+    .btnTab:hover{ transform: scale(1.05); }
+
+    .btn-secondary {
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: scale(1.05);
+    }
+
     .form-control.error {
         border-color: red;
         color: red;
@@ -140,12 +186,12 @@
                                                 <?= $data["email"] ?>
                                             </td>
                                             <td>
-                                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalcli"
+                                                <a class="btn btn-success btnTab" data-bs-toggle="modal" data-bs-target="#modalcli"
                                                     onclick="updateForm(<?= $data['cin'] ?>)">Modiffier</a>
                                             </td>
                                             <td>
                                                 <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
-                                                    class="btn btn-danger">Supprimer</a>
+                                                    class="btn btn-danger btnTab">Supprimer</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -14,13 +14,13 @@ function controlNom(value, controls, span, message){
     }
 }
 function controlPrenom(value, controls, span, message){
-    if(!value.match(/^[a-zA-Z]*$/) || value.length < 3 && value !="" ){
+    if(!value.match(/^[a-zA-Z\s]*$/) || value.length < 3 && value !="" ){
         controls.classList.add("error");
         span.textContent=message;
         prenom=null;
     }else{
         controls.classList.remove("error");
-        span.textContent="" ;
+        span.textContent="";
         prenom=value;
     }
 }
