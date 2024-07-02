@@ -2,8 +2,6 @@
 <html lang="en">
 <?php
 require_once "../api/db.php";
-session_start();
-
 if (!isset($_SESSION["auth"]) || empty($_SESSION["auth"])) {
     header("location: ../index.php");
 }
@@ -15,11 +13,11 @@ if (!isset($_SESSION["auth"]) || empty($_SESSION["auth"])) {
     <title>Menu</title>
     <?php require '../components/forall/head.php' ?>
 
-<body style="height: 100vh">
+<body style="height: 100vh; overflow-y:hidden;">
     <div class="d-flex" style="height: 100%">
         <?php require '../components/forall/header.php' ?>
         <div class="bg-light w-100">
-            <div id="homepage">
+            <div id="homepage" style="height: 90vh; overflow:auto; position:relative;">
                 <?php require '../components/forall/pin.php'?>
                 <?php require '../components/pages/projets.php' ?>
             </div>

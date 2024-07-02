@@ -1,6 +1,5 @@
 <?php
-    session_start();
-    include "../../api/db.php";
+    require_once "../../api/db.php";
     // global $conn;
 
     if(isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {

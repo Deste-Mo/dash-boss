@@ -96,8 +96,10 @@
                                         <th class="border-top-0 p-3"></th>
                                         <th class="border-top-0 p-3">Nom de la tache</th>
                                         <th class="border-top-0 p-3">status</th>
-                                        <th class="border-top-0 p-3">Action</th>
-                                        <th class="border-top-0 p-3">Action</th>
+                                        <th class="border-top-0 p-3">Affecter</th>
+                                        <th class="border-top-0 p-3">Terminer</th>
+                                        <th class="border-top-0 p-3">Annuler</th>
+                                        <th class="border-top-0 p-3">Supprimer</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rows">
@@ -136,6 +138,22 @@
                                                             aria-hidden="true"></i></button>
                                                 <?php endif; ?>
                                             </td>
+
+                                            <td style="padding-top:10px; padding-bottom:10px">
+                                                <?php if ($u['etat'] === 'E'): ?>
+                                                    <button class="btn btn-secondary"
+                                                        onclick="annulerTask(<?= $u['tache_id'] ?>)"><i class="fa fa-times"
+                                                            aria-hidden="true"></i></button>
+                                                <?php endif; ?>
+                                            </td>
+                                            
+                                            <td style="padding-top:10px; padding-bottom:10px">
+                                                <?php if ($u['etat'] !== 'E'): ?>
+                                                    <button class="btn btn-danger"
+                                                        onclick="deleteTask(<?= $u['tache_id'] ?>)"><i class="fa fa-trash"
+                                                            aria-hidden="true"></i></button>
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                         <?php $i++;
                                     endforeach;
@@ -169,6 +187,45 @@
                 url: "../api/other/clearTask.php",
                 data: {
                     idToClear: num,
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        responses = jQuery.parseJSON(response);
+                        alert(responses.success);
+                        $('#listTask').load(location.href + ' #listTask');
+                    }
+                }
+            });
+        }
+
+        function annulerTask(num) {
+            $.ajax({
+                type: "POST",
+                url: "../api/other/annulerTask.php",
+                data: {
+                    idToClear: num,
+                },
+                success: function (response) {
+                    if (response.error) {
+                        alert(response.error);
+                    } else {
+                        responses = jQuery.parseJSON(response);
+                        alert(responses.success);
+                        $('#listTask').load(location.href + ' #listTask');
+                    }
+                }
+            });
+        }
+
+        function deleteTask(num) {
+            $.ajax({
+                type: "POST",
+                url: "../api/delete/deleteTask.php",
+                data: {
+                    idToDelete: num,
                 },
                 success: function (response) {
                     console.log(response);

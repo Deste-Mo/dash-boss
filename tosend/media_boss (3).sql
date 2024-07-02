@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 01 juil. 2024 à 08:28
+-- Généré le : lun. 01 juil. 2024 à 14:35
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -47,8 +47,17 @@ CREATE TABLE `comment` (
   `comment_mail` varchar(250) NOT NULL,
   `comment_name` varchar(250) DEFAULT NULL,
   `comment_message` text DEFAULT NULL,
-  `comment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` varchar(2) NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `comment`
+--
+
+INSERT INTO `comment` (`comment_id`, `comment_mail`, `comment_name`, `comment_message`, `comment_date`, `status`) VALUES
+(25, 'emmanuel@gmail.com', 'Emmanuel ADOLPHE', 'Bonjour', '2024-07-01 12:06:12', 'V'),
+(26, 'razafitosy@gmail.com', 'Toslin', 'Test ihany ty', '2024-07-01 12:06:17', 'V');
 
 -- --------------------------------------------------------
 
@@ -321,7 +330,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT pour la table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT pour la table `contrat`

@@ -79,10 +79,6 @@
     }
 </style>
 <div>
-    <!-- Modal trigger button -->
-
-    <!-- Modal Body -->
-    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade " id="modalcli" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
@@ -148,7 +144,7 @@
                 <!-- column -->
                 <div class="col-12">
                     <div class="card">
-                        <div class="table-responsive" style="position: relative; max-height: 650px;">
+                        <div class="table-responsive" style="position: relative; max-height: 500px;">
                             <?php if (isset($_GET["message"])): ?>
                                 <?= "<script> setTimeout(() => {document.querySelector('.alert').remove(); document.location.href = '../views/members.php?membre=active';}, 1500);</script>"; ?>
                                 <div class="alert alert-danger">Le CIN ou le numero telephone ou l'email existe deja</div>
@@ -163,7 +159,6 @@
                                         <th class="border-top-0 p-3">Email</th>
                                         <th class="border-top-0 p-3">Modification</th>
                                         <th class="border-top-0 p-3">Suppression</th>
-
                                     </tr>
                                 </thead>
                                 <tbody id="rows">

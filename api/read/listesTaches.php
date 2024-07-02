@@ -1,16 +1,16 @@
 <?php
 function getTache($conn)
 {
-    $sql = "SELECT * FROM tache WHERE etat = 'L' OR etat = 'E' OR etat is NULL";
+    $sql = "SELECT * FROM tache WHERE etat = 'N' OR etat = 'E'";
     $stmt = $conn->prepare($sql);
     $stmt->execute([]);
 
     if ($stmt->rowCount() > 0) {
-        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $user;
+        $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $task;
     } else {
-        $user = [];
-        return $user;
+        $task = [];
+        return $task;
     }
 }
 
