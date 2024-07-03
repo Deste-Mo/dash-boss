@@ -40,6 +40,20 @@
         background-color: #5a6268;
         transform: scale(1.05);
     }
+
+    /* primary: {
+        // 100: "#1877f2",
+        100: "#8ec7da",
+        80: "#8ec7dacc", // 80% opacity
+        60: "#8ec7da99", // 60% opacity
+        40: "#8ec7da66", // 40% opacity
+        20: "#8ec7da33", // 20% opacity
+        10: "#8ec7da1a", // 10% opacity
+      }, */
+
+    .bg-dark{
+        background-color: "#1877f2";
+    }
 </style>
 
 <div>

@@ -1,9 +1,12 @@
-<div class="page-wrapper px-3 bg-dark">
-    <div class="bg-light text-dark d-flex align-items-center justify-content-between">
-        <div>
-            <h2 style="text-align:center;" class="p-3">Les Projets</h2>
-        </div>
+<?php $rech = "";
+$projets = getProjets($conn, $rech);
+?>
+<div class="page-wrapper px-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 style="text-align:center;" class="p-3">Les Projets</h2>
+        <input type="text" class="form-control w-25" id="research">
     </div>
+
 
 
     <!-- Modal pour affecter les personnel a des taches-->
@@ -52,17 +55,17 @@
             <form method="POST" class="modal-content" action="../api/create/nouveauTache.php">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Nouveau tache
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex align-items-center justify-content-between">
                     <div class="mx-3">
-                        <label class="m-2">Nom du Projet</label>
+                        <label class="m-2">Nom du Tache</label>
                         <input type="text" required class="form-control" id="nom_tache" name="nom_tache">
                     </div>
                     <div>
-                        <label class="m-2 d-block">Duree du Projet</label>
+                        <label class="m-2 d-block">Duree du Tache</label>
                         <input type="text" name="dureeTask" id="dureeTask" class="form-control w-25 d-inline">
                         <select name="uniteDeTemps" id="uniteDeTemps" class="form-control w-50 d-inline">
                             <option value="jours">Jours</option>
@@ -101,7 +104,7 @@
                     <div>
                         <label class="m-2 d-block">Duree du Projet</label>
                         <input type="text" name="dureeProjet" id="dureeProjet" class="form-control w-25 d-inline">
-                        <select name="uniteDeTemps" id="uniteDeTemps" class="form-control w-50 d-inline">
+                        <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-control w-50 d-inline">
                             <option value="jours">Jours</option>
                             <option value="mois">Mois</option>
                         </select>
@@ -193,7 +196,7 @@
                 style="font-weight: 800;color:white; text-align:center;padding:5px;cursor:pointer"
                 data-bs-toggle="modal" data-bs-target="#modalProj">+Projet</label>
         </div>
-        <?php $projets = getProjets($conn);
+        <?php 
         foreach ($projets as $pr):
             $datep1 = date_create($pr['dateCom']);
             $datep = new DateTime($pr['dateCom']);
@@ -204,21 +207,22 @@
             $finp = $datep->add(new DateInterval('P' . $dureep . 'D'));
             $perc = getPercent($conn, $pr['N_pro']);
             ?>
-            <div class="bg-light d-flex flex-column justify-content-between m-3" style="text-wrap:nowrap;">
+            <div class="bg-light d-flex flex-column justify-content-between m-3"
+                style="text-wrap:nowrap;border:1px solid #8ec7da99;border-radius:10px;">
                 <div class="bg-light d-flex justify-content-between align-items-center m-3" style="text-wrap:nowrap;">
                     <label for="nom"
                         style="font-weight: 800;color:black; text-align:left;padding:5px; width:100px;"><?= $pr['nomP'] ?></label>
                     <label for="nom"
                         style="font-weight: 800;color:black; text-align:left;padding:5px; width:100px;"><?= $pr['nom'] . " " . $pr['prenom'] ?></label>
                     <label for="action"
-                        style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $pr['duree'] ?></label>
+                        style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $diffp."/".$pr['duree']."jours" ?></label>
                     <label for="action"
                         style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $finp->format("d/m/y") ?></label>
                     <label for="action"
                         style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $perc . "%" ?></label>
                     <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 800;color:white;padding:5px; width:100px;"
-                        data-bs-toggle="modal" data-bs-target="#modalChef">
+                        style="font-weight: 800;color:black;padding:5px; width:100px;" data-bs-toggle="modal"
+                        data-bs-target="#modalChef">
                         <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null): ?>
                             <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
                                 <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>Affecter
@@ -246,13 +250,18 @@
                     <label for="action" class="d-flex justify-content-end align-items-center"
                         style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">
                         <button class="btn btn-primary"
-                            onclick="seeMessage(this, '<?= $c['comment_id'] ?>', '<?= $c['status'] ?>')"
+                            onclick="seeTask('listTask<?= $pr['N_pro'] ?>')"
                             style="background-color:white; color:black;border:none;"><i class="fa fa-chevron-down"></i>
                         </button>
                     </label>
                 </div>
                 <div id="listTask<?= $pr['N_pro'] ?>"
-                    style="max-height: 600px;height:200px; overflow:auto; margin-bottom:40px; z-index:0;">
+                    style="max-height: 600px;height:200px; overflow:auto; margin-bottom:40px; z-index:0;" class="taskContainer">
+                    <div class="text-dark d-flex align-items-center justify-content-between">
+                        <div>
+                            <h2 style="text-align:center;" class="p-3">Les Taches</h2>
+                        </div>
+                    </div>
                     <div class="TaskContainer d-flex justify-content-between">
                         <div class="container-fluid">
                             <div class="page-wrapper">
@@ -333,7 +342,7 @@
                                                                     </td>
                                                                     <td
                                                                         style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
-                                                                        <?= $diff . "/" . $u['duree'] ?>
+                                                                        <?= $diff . "/" . $u['duree']."jours" ?>
                                                                     </td>
                                                                     <td
                                                                         style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
@@ -496,6 +505,10 @@
             });
         }
 
+        function seeTask(idList){
+            $('#'+idList).toggleClass('d-none');
+        }
+
         function affectPersonnal(num, id_proj) {
             $('#affect').on('click', function () {
                 $("#closeBt").click();
@@ -530,7 +543,8 @@
                 nom_tache = $('#nom_tache').val();
                 duree = $('#dureeTask').val();
                 unity = $('#uniteDeTemps').val();
-                full = unity == "Mois" ? duree * 30 : duree;
+                console.log(unity)
+                full = unity == "mois" ? duree * 30 : duree;
 
                 $('#closeModal').click();
                 $('#nom_tache').val("");
@@ -556,7 +570,8 @@
                     }
                 })
             })
-        }/*
+        }
+        /*
 */
 
         function annulerProjet(num, res) {
@@ -633,13 +648,14 @@
         function ajouterProjet() {
             nom_projet = $('#nom_projet').val();
             duree = $('#dureeProjet').val();
-            unity = $('#uniteDeTemps').val();
+            unity = $('#uniteDeTempsP').val();
+            console.log(unity);
             full = unity == 'mois' ? duree * 30 : duree;
 
             $('#closeModalProjet').click();
             $('#nom_projet').val("");
             $('#dureeProjet').val("");
-            $('#uniteDeTemps').val("");
+            $('#uniteDeTempsP').val("");
             $.ajax({
                 type: "POST",
                 url: "../api/create/newProjet.php",
@@ -654,7 +670,7 @@
                     } else {
                         responses = jQuery.parseJSON(response);
                         alert(responses.success);
-                        // $('#listProjet').load(location.href + ' #listProjet');
+                        $('#listProjet').load(location.href + ' #listProjet');
                     }
                 }
             })

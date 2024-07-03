@@ -30,6 +30,7 @@
         font-size: 2em;
         color: #007BFF;
     }
+
 </style>
 <div class="cardss">
     <div class="card carte">

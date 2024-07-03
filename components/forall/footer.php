@@ -3,6 +3,7 @@
 <script>
     $(document).ready(function () {
         $('.messageContainer').addClass('d-none');
+        $('.taskContainer').addClass('d-none');
         setInterval(() => {
             $('#headerDiv').load(location.href + ' #headerDiv');
             // $('#allMessage').load(location.href + ' #allMessage');

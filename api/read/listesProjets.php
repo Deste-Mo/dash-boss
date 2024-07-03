@@ -1,7 +1,7 @@
 <?php
-function getProjets($conn)
+function getProjets($conn, $rech)
 {
-    $sql = "SELECT projet.*, DATE(projet.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM projet LEFT JOIN personnel on  projet.id_chef = personnel.cin WHERE dateFin IS NULL ORDER BY N_pro DESC";
+    $sql = "SELECT projet.*, DATE(projet.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM projet LEFT JOIN personnel on  projet.id_chef = personnel.cin WHERE dateFin IS NULL AND nomP LIKE '%".$rech."%' ORDER BY N_pro DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute([]);
 
