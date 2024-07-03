@@ -1,4 +1,3 @@
-
 <div>
     <!-- Modal trigger button -->
 
@@ -14,9 +13,19 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label>Nom de la tache</label><br>
-                    <input type="text" required class="form-control" id="nom_tache" name="nom_tache"><br>
+                <div class="modal-body d-flex align-items-center justify-content-between">
+                    <div class="mx-3">
+                        <label class="m-2">Nom de la tache</label>
+                        <input type="text" required class="form-control" id="nom_tache" name="nom_tache">
+                    </div>
+                    <div>
+                        <label class="m-2 d-block">Duree de la tache</label>
+                        <input type="text" name="dureeTask" id="dureeTask" class="form-control w-25 d-inline">
+                        <select name="uniteDeTemps" id="uniteDeTemps" class="form-control w-50 d-inline">
+                            <option value="jours">Jours</option>
+                            <option value="mois">Mois</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -92,14 +101,17 @@
                         <div class="table-responsive" style="max-height: 500px; position: relative">
                             <table id="listTask" class="table v-middle">
                                 <thead style="position:sticky; top:0;">
-                                    <tr class="bg-light">
-                                        <th class="border-top-0 p-3"></th>
-                                        <th class="border-top-0 p-3">Nom de la tache</th>
-                                        <th class="border-top-0 p-3">status</th>
-                                        <th class="border-top-0 p-3">Affecter</th>
-                                        <th class="border-top-0 p-3">Terminer</th>
-                                        <th class="border-top-0 p-3">Annuler</th>
-                                        <th class="border-top-0 p-3">Supprimer</th>
+                                    <tr>
+                                        <th class="bg-dark border-top-0 p-3 text-light"></th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Nom de la tache</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Responsable</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Duree</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Prevue</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">status</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Affecter</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Terminer</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Annuler</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Supprimer</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rows">
@@ -107,23 +119,40 @@
                                     $i = 1;
                                     $taches = getTache($conn);
                                     foreach ($taches as $u):
+                                        $date1 = date_create($u['dateCom']);
+                                        $date = new DateTime($u['dateCom']);
+                                        $date2 = date_create();
+                                        $duree = intval(explode(" ", $u['duree'])[0]);
+                                        $diff = date_diff($date1, $date2)->format('%a');
+                                        $res = $duree - $diff;
+                                        $fin = $date->add(new DateInterval('P' . $duree . 'D'));
                                         ?>
                                         <tr id="tr<?= $u['tache_id'] ?>">
                                             <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $i ?>
                                             </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?= $u['tache_nom'] ?>
-
                                             </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
+                                                <?= $u['nom'] . " " . $u['prenom'] ?>
+                                            </td>
+                                            <td
+                                                style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:center;">
+                                                <?= $diff . "/" . $u['duree'] ?>
+                                            </td>
+                                            <td
+                                                style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:center;">
+                                                <?= $fin->format('d/m/y') ?>
+                                            </td>
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?= $u['etat'] === 'E' ?
                                                     '<div class="spinner-border text-secondary" role="status">
                                                         <span class="sr-only">Loading...</span>
-                                                    </div>' 
+                                                    </div>'
                                                     : 'libre' ?>
                                             </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?php if ($u['etat'] !== 'E'): ?>
                                                     <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                                         data-bs-target="#modalId"
@@ -131,7 +160,7 @@
                                                             aria-hidden="true"></i></button>
                                                 <?php endif; ?>
                                             </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?php if ($u['etat'] === 'E'): ?>
                                                     <button class="btn btn-success"
                                                         onclick="clearTask(<?= $u['tache_id'] ?>)"><i class="fa fa-check"
@@ -139,15 +168,15 @@
                                                 <?php endif; ?>
                                             </td>
 
-                                            <td style="padding-top:10px; padding-bottom:10px">
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?php if ($u['etat'] === 'E'): ?>
                                                     <button class="btn btn-secondary"
-                                                        onclick="annulerTask(<?= $u['tache_id'] ?>)"><i class="fa fa-times"
-                                                            aria-hidden="true"></i></button>
+                                                        onclick="annulerTask(<?= $u['tache_id'] ?>,<?= $res ?>)"><i
+                                                            class="fa fa-times" aria-hidden="true"></i></button>
                                                 <?php endif; ?>
                                             </td>
-                                            
-                                            <td style="padding-top:10px; padding-bottom:10px">
+
+                                            <td style="padding-top:10px; padding-bottom:10px; text-align:center;">
                                                 <?php if ($u['etat'] !== 'E'): ?>
                                                     <button class="btn btn-danger"
                                                         onclick="deleteTask(<?= $u['tache_id'] ?>)"><i class="fa fa-trash"
@@ -186,7 +215,7 @@
                 type: "POST",
                 url: "../api/other/clearTask.php",
                 data: {
-                    idToClear: num,
+                    idToClear: num
                 },
                 success: function (response) {
                     console.log(response);
@@ -201,12 +230,13 @@
             });
         }
 
-        function annulerTask(num) {
+        function annulerTask(num, res) {
             $.ajax({
                 type: "POST",
                 url: "../api/other/annulerTask.php",
                 data: {
                     idToClear: num,
+                    res: res
                 },
                 success: function (response) {
                     if (response.error) {
@@ -269,6 +299,9 @@
 
         function addTask() {
             nom_tache = $('#nom_tache').val();
+            duree = $('#dureeTask').val();
+            unity = $('#uniteDeTemps').val();
+            full = duree + " " + unity;
 
             $('#closeModal').click();
             $('#nom_tache').val("");
@@ -276,7 +309,8 @@
                 type: "POST",
                 url: "../api/create/nouveauTache.php",
                 data: {
-                    nom_tache: nom_tache
+                    nom_tache: nom_tache,
+                    duree: full
                 },
                 success: function (response) {
                     console.log(response);

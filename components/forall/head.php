@@ -9,5 +9,13 @@
         *{
             transition: 0.5s;
         }
+
+    /* ::-webkit-scrollbar{
+        display: none;
+    } */
+
+    #headerDiv{
+        z-index: 1000000;
+    }
     </style>
 </head>

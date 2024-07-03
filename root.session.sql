@@ -10,4 +10,10 @@
 -- INSERT INTO tache (tache_nom) VALUES ('Former les nouveaux employés');
 
 
-SELECT * FROM tache;
+-- SELECT * FROM tache;
+
+-- SELECT tache.*, DATE(tache.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM tache LEFT JOIN personnel on  tache.cin = personnel.cin WHERE etat = 'N' OR etat = 'E'
+
+-- UPDATE tache SET etat = 'N', cin = Null, dateDeb = Null, duree = (duree - ) WHERE tache_id = ?
+
+SELECT COUNT(tache_id) AS 'tout' FROM tache WHERE id_projet = 4

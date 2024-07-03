@@ -1,5 +1,5 @@
 <?php require_once '../api/read/listesComment.php'?>
-<div id="headerDiv" class=" d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%;">
+<div id="headerDiv" class=" d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%;z-index:500;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi pe-none me-2" width="40" height="32">
             <img src="../assets/images/logo-light-icon.png" alt="" class="p-2">
@@ -24,14 +24,7 @@
                 Membres
             </a>
         </li>
-        <li class="nav-item mb-3">
-            <a href="taches.php?tache=active" class="nav-link text-white <?php if (isset($_GET["client"])) echo $_GET["client"]; ?>">
-                <svg class="bi pe-none me-2" width="16" height="16">
-                    <i class="fa fa-user p-3"></i>
-                </svg>
-                Clients
-            </a>
-        </li>
+
         <li class="nav-item mb-3">
             <a href="taches.php?tache=active" class="nav-link text-white <?php if (isset($_GET["tache"])) echo $_GET["tache"]; ?>">
                 <svg class="bi pe-none me-2" width="16" height="16">
@@ -41,7 +34,7 @@
             </a>
         </li>
         <li class="nav-item mb-3">
-            <a href="taches.php?tache=active" class="nav-link text-white <?php if (isset($_GET["projet"])) echo $_GET["projet"]; ?>">
+            <a href="projets.php?projet=active" class="nav-link text-white <?php if (isset($_GET["projet"])) echo $_GET["projet"]; ?>">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <i class="fa fa-spinner p-3"></i>
                 </svg>

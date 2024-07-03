@@ -9,11 +9,7 @@
 <?php
     $query = $conn->query("SELECT COUNT(*) as nombre FROM personnel");
     $nbrMembres = $query->fetch();
-    $query2 = $conn->query("SELECT COUNT(*) as nombre FROM tache");
-    $nbrTaches = $query2->fetch();
-    $query3 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE cin != ''");
-    $nbrTacheOccuper = $query3->fetch();
-    $query4 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'L'");
+    $query4 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'N'");
     $nbrTacheLibre = $query4->fetch();
     $query5 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'E'");
     $nbrTacheEnCours = $query5->fetch();

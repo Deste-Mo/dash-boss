@@ -5,7 +5,8 @@ require_once "../api/db.php";
 if (!isset($_SESSION["auth"]) || empty($_SESSION["auth"])) {
     header("location: ../index.php");
 }
-
+require '../api/read/listesTaches.php';
+require '../api/read/listesProjets.php';
 ?>
 <head>
     <meta charset="UTF-8">
@@ -17,7 +18,7 @@ if (!isset($_SESSION["auth"]) || empty($_SESSION["auth"])) {
     <div class="d-flex" style="height: 100%">
         <?php require '../components/forall/header.php' ?>
         <div class="bg-light w-100">
-            <div id="homepage" style="height: 90vh; overflow:auto; position:relative;">
+            <div id="homepage" style="height: 100vh; overflow:auto; position:relative;">
                 <?php require '../components/forall/pin.php'?>
                 <?php require '../components/pages/projets.php' ?>
             </div>

@@ -2,7 +2,7 @@
 
 require_once '../db.php';
 
-$sql = "UPDATE tache SET etat = 'F' WHERE tache_id = ?";
+$sql = "UPDATE tache SET etat = 'F', dateFin= CURRENT_TIMESTAMP WHERE tache_id = ?";
 
 if(isset($_POST['idToClear'])){
     $stmt = $conn->prepare($sql);

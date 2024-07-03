@@ -2,11 +2,11 @@
 
 require_once '../db.php';
 
-$sql = "INSERT INTO tache (tache_nom) VALUES(?)";
+$sql = "INSERT INTO tache (tache_nom, duree, id_projet) VALUES(?,?,?)";
 
-if(isset($_POST['nom_tache'])){
+if(isset($_POST['nom_tache']) && isset($_POST['duree']) && !empty($_POST['nom_tache']) && !empty($_POST['duree']) && isset($_POST['id']) && !empty($_POST['id'])){
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$_POST['nom_tache']]);
+    $stmt->execute([$_POST['nom_tache'], $_POST['duree'], $_POST['id']]);
     
     if($stmt){
         $answer = [

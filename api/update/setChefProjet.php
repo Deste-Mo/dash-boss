@@ -2,15 +2,15 @@
 
 require_once '../db.php';
 
-$sql = "UPDATE tache SET etat = 'N', cin = Null, dateDeb = Null, duree = ? WHERE tache_id = ?";
+$sql = "UPDATE projet SET id_chef = ? WHERE N_pro = ?";
 
-if(isset($_POST['idToClear']) && !empty($_POST['idToClear']) && isset($_POST['res']) && !empty($_POST['res'])){
+if(isset($_POST['id']) && isset($_POST['cin']) && !empty($_POST['cin']) && !empty($_POST['id'])){
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$_POST['res'],$_POST['idToClear']]);
+    $stmt->execute([$_POST['cin'],$_POST['id']]);
     
     if($stmt){
         $answer = [
-            'success' => "Tache annuler"
+            'success' => "Tache effectuer"
         ];
         echo json_encode($answer);
         return;
@@ -21,4 +21,6 @@ if(isset($_POST['idToClear']) && !empty($_POST['idToClear']) && isset($_POST['re
         echo json_encode($answer);
         return;
     }
+}else{
+    return;
 }

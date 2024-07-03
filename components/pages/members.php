@@ -65,18 +65,6 @@
         top: 0;
     }
 
-    tr:nth-child(even) {
-        background: #e7e7e7;
-    }
-
-    tr,
-    th,
-    td {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 0.5em 0;
-    }
 </style>
 <div>
     <div class="modal fade " id="modalcli" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -151,42 +139,42 @@
                             <?php endif ?>
                             <table id="listPersonnel" class="table v-middle">
                                 <thead style="position:sticky; top:0;">
-                                    <tr class="bg-light">
-                                        <th class="border-top-0 p-3">Photo</th>
-                                        <th class="border-top-0 p-3">CIN</th>
-                                        <th class="border-top-0 p-3">Nom et prénom </th>
-                                        <th class="border-top-0 p-3">N° téléphone</th>
-                                        <th class="border-top-0 p-3">Email</th>
-                                        <th class="border-top-0 p-3">Modification</th>
-                                        <th class="border-top-0 p-3">Suppression</th>
+                                    <tr>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Photo</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">CIN</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Nom et prénom </th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">N° téléphone</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Email</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Modification</th>
+                                        <th class="bg-dark border-top-0 p-3 text-light">Suppression</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rows">
                                     <?php foreach ($query as $data): ?>
                                         <tr>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <img src="../assets/uploads/<?= $data["photo"] ?>" alt="" width="40px"
                                                     height="40px">
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $data["cin"] ?>
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $data["nom"] . " " . $data["prenom"] ?>
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $data["telephone"] ?>
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $data["email"] ?>
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <a class="btn btn-success btnTab" data-bs-toggle="modal" data-bs-target="#modalcli"
-                                                    onclick="updateForm(<?= $data['cin'] ?>)">Modiffier</a>
+                                                    onclick="updateForm(<?= $data['cin'] ?>)"><i class="fa fa-edit"></i></a>
                                             </td>
-                                            <td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
-                                                    class="btn btn-danger btnTab">Supprimer</a>
+                                                    class="btn btn-danger btnTab"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
