@@ -3,7 +3,7 @@
 require_once '../db.php';
 
 
-$condition = isset($_POST['cin']) && isset($_POST['cinHide']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']);
+$condition = isset($_POST['cin']) && isset($_POST['cinHide']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['qualif']) && isset($_POST['description']) && isset($_POST['lienProfile']);
 
 $upload = null;
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($photo)) {
 
 if ($condition) {
     if (isset($_POST['prenom']) && !is_null($upload) && $upload) {
-        $sql = "UPDATE personnel SET cin = ?, nom = ?, prenom = ?, telephone = ?, photo = ?, email = ? WHERE cin = ?";
+        $sql = "UPDATE personnel SET cin = ?, nom = ?, prenom = ?, telephone = ?, photo = ?, email = ?, qualif = ?, description = ?, lienProfile = ? WHERE cin = ?";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
@@ -64,27 +64,36 @@ if ($condition) {
             $_POST['telephone'],
             $target_name,
             $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile'],
             $_POST['cinHide']
         ];
 
     } else if (isset($_POST['prenom'])) {
-        $sql = "UPDATE personnel SET cin = ?, nom = ?, prenom = ?, telephone = ?, email = ? WHERE cin = ?";
+        $sql = "UPDATE personnel SET cin = ?, nom = ?, prenom = ?, telephone = ?, email = ?, qualif = ?, description = ?, lienProfile = ? WHERE cin = ?";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['telephone'],
             $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile'],
             $_POST['cinHide']
         ];
     } else if (!is_null($upload) && $upload) {
-        $sql = "UPDATE personnel SET cin = ?, nom = ? telephone = ?, photo = ?, email = ? WHERE cin = ?";
+        $sql = "UPDATE personnel SET cin = ?, nom = ? telephone = ?, photo = ?, email = ?, qualif = ?, description = ?, lienProfile = ? WHERE cin = ?";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
             $_POST['telephone'],
             $target_name,
             $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile'],
             $_POST['cinHide']
         ];
     }

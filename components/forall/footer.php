@@ -7,7 +7,7 @@
         setInterval(() => {
             $('#headerDiv').load(location.href + ' #headerDiv');
             // $('#allMessage').load(location.href + ' #allMessage');
-        }, 10000);
+        }, 1000);
     });
 </script>
 </body>

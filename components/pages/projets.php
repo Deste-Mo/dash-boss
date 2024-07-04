@@ -4,7 +4,6 @@ $projets = getProjets($conn, $rech);
 <div class="page-wrapper px-3">
     <div class="d-flex justify-content-between align-items-center">
         <h2 style="text-align:center;" class="p-3">Les Projets</h2>
-        <input type="text" class="form-control w-25" id="research">
     </div>
 
 
@@ -16,12 +15,12 @@ $projets = getProjets($conn, $rech);
             <form class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Taches Personnel
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control" name="selectPersonnel" id="selectPersonnel">
+                    <select class="form-select" name="selectPersonnel" id="selectPersonnel">
                         <?php
                         $i = 1;
                         $users = getUser($conn);
@@ -67,7 +66,7 @@ $projets = getProjets($conn, $rech);
                     <div>
                         <label class="m-2 d-block">Duree du Tache</label>
                         <input type="text" name="dureeTask" id="dureeTask" class="form-control w-25 d-inline">
-                        <select name="uniteDeTemps" id="uniteDeTemps" class="form-control w-50 d-inline">
+                        <select name="uniteDeTemps" id="uniteDeTemps" class="form-select w-50 d-inline">
                             <option value="jours">Jours</option>
                             <option value="mois">Mois</option>
                         </select>
@@ -92,7 +91,7 @@ $projets = getProjets($conn, $rech);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Nouveau Projet
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -104,7 +103,7 @@ $projets = getProjets($conn, $rech);
                     <div>
                         <label class="m-2 d-block">Duree du Projet</label>
                         <input type="text" name="dureeProjet" id="dureeProjet" class="form-control w-25 d-inline">
-                        <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-control w-50 d-inline">
+                        <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-select w-50 d-inline">
                             <option value="jours">Jours</option>
                             <option value="mois">Mois</option>
                         </select>
@@ -129,12 +128,12 @@ $projets = getProjets($conn, $rech);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Chef de Projet
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-5">
-                    <select class="form-control p-2" name="selectChef" id="selectChef">
+                    <select class="form-select p-2" name="selectChef" id="selectChef">
                         <?php
                         $i = 1;
                         $users = getUser($conn);
@@ -176,24 +175,24 @@ $projets = getProjets($conn, $rech);
     <div id="listProjet" class="container-fluid d-flex flex-column justify-content-between">
         <div class="bg-dark d-flex justify-content-between p-3 position-sticky"
             style="text-wrap:nowrap; top:100px;z-index:200;">
-            <label for="nom" style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Nom
+            <label for="nom" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Nom
                 Projet</label>
-            <label for="nom" style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Chef
+            <label for="nom" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Chef
                 Infos</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Duree</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Duree</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Prevue</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Prevue</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Progression</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Progression</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Chef</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Chef</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Annuler</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Annuler</label>
             <label for="action"
-                style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">Supprimer</label>
+                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Supprimer</label>
             <label for="action" class="btn btn-secondary"
-                style="font-weight: 800;color:white; text-align:center;padding:5px;cursor:pointer"
+                style="font-weight: 400;color:white; text-align:center;padding:2px;cursor:pointer"
                 data-bs-toggle="modal" data-bs-target="#modalProj">+Projet</label>
         </div>
         <?php 
@@ -209,19 +208,19 @@ $projets = getProjets($conn, $rech);
             ?>
             <div class="bg-light d-flex flex-column justify-content-between m-3"
                 style="text-wrap:nowrap;border:1px solid #8ec7da99;border-radius:10px;">
-                <div class="bg-light d-flex justify-content-between align-items-center m-3" style="text-wrap:nowrap;">
+                <div class="bg-light d-flex justify-content-between align-items-center m-3" style="text-wrap:wrap;">
                     <label for="nom"
-                        style="font-weight: 800;color:black; text-align:left;padding:5px; width:100px;"><?= $pr['nomP'] ?></label>
+                        style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nomP'] ?></label>
                     <label for="nom"
-                        style="font-weight: 800;color:black; text-align:left;padding:5px; width:100px;"><?= $pr['nom'] . " " . $pr['prenom'] ?></label>
+                        style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nom'] . " " . $pr['prenom'] ?></label>
                     <label for="action"
-                        style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $diffp."/".$pr['duree']."jours" ?></label>
+                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $diffp."/".$pr['duree']."jours" ?></label>
                     <label for="action"
-                        style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $finp->format("d/m/y") ?></label>
+                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $finp->format("d/m/y") ?></label>
                     <label for="action"
-                        style="font-weight: 800;color:black; text-align:center;padding:5px; width:100px;"><?= $perc . "%" ?></label>
+                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $perc . "%" ?></label>
                     <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 800;color:black;padding:5px; width:100px;" data-bs-toggle="modal"
+                        style="font-weight: 400;color:black;padding:2px; width:100px;" data-bs-toggle="modal"
                         data-bs-target="#modalChef">
                         <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null): ?>
                             <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
@@ -235,20 +234,20 @@ $projets = getProjets($conn, $rech);
                     </label>
 
                     <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 800;color:white; text-align:left;padding:5px; width:100px;">
+                        style="font-weight: 400;color:white; text-align:left;padding:2px; width:100px;">
                         <button class="btn btn-secondary" onclick="annulerProjet(<?= $pr['N_pro'] ?>, $resp)">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     </label>
                     <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">
+                        style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
                         <button class="btn btn-danger" onclick="deleteProjet(<?= $pr['N_pro'] ?>)">
                             <i class="fa fa-trash" aria-hidden="true" style="font-size: 12px;">
                             </i>
                         </button>
                     </label>
                     <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 800;color:white; text-align:center;padding:5px; width:100px;">
+                        style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
                         <button class="btn btn-primary"
                             onclick="seeTask('listTask<?= $pr['N_pro'] ?>')"
                             style="background-color:white; color:black;border:none;"><i class="fa fa-chevron-down"></i>

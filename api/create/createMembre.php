@@ -3,11 +3,11 @@
 require_once '../db.php';
 
 
-$condition = isset($_POST['cin']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']);
+$condition = isset($_POST['cin']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['qualif']) && isset($_POST['description']) && isset($_POST['lienProfile']);
 
 $upload = null;
 
-if(isset($_FILES['photo'])){
+if (isset($_FILES['photo'])) {
     $photo = $_FILES['photo'];
 }
 
@@ -56,33 +56,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($photo)) {
 
 if ($condition) {
     if (isset($_POST['prenom']) && !is_null($upload) && $upload) {
-        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, photo, email) VALUES(?,?,?,?,?,?) ";
+        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, photo, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?,?) ";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['telephone'],
             $target_name,
-            $_POST['email']
+            $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile']
         ];
 
     } else if (isset($_POST['prenom'])) {
-        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, email) VALUES(?,?,?,?,?)";
+        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?)";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['telephone'],
-            $_POST['email']
+            $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile']
         ];
     } else if (!is_null($upload) && $upload) {
-        $sql = "INSERT INTO personnel (cin, nom, telephone, photo, email) VALUES(?,?,?,?,?)";
+        $sql = "INSERT INTO personnel (cin, nom, telephone, photo, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?)";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
             $_POST['telephone'],
             $target_name,
-            $_POST['email']
+            $_POST['email'],
+            $_POST['qualif'],
+            $_POST['description'],
+            $_POST['lienProfile']
         ];
     }
 
@@ -90,21 +99,21 @@ if ($condition) {
     $stmt->execute($param);
 
     if ($stmt) {
-        if(!is_null($upload) && !$upload){
+        if (!is_null($upload) && !$upload) {
             $answer = [
                 'success' => "Membres Ajouter",
                 'uploadsErr' => "photo non Ajouter reessayer plus tard"
             ];
             echo json_encode($answer);
             return;
-        }else if($upload){
+        } else if ($upload) {
             $answer = [
                 'success' => "Membres Ajouter",
                 'uploads' => "photo Ajouter"
             ];
             echo json_encode($answer);
             return;
-        }else{
+        } else {
             $answer = [
                 'success' => "Membres Ajouter"
             ];

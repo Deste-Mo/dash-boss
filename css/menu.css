@@ -22,5 +22,19 @@ span{ font-weight: 700; }
 }
 
 .bg-dark{
-    background-color: #0034af!important;
+    background-color:#005374!important;
+}
+
+.btn-primary{
+    background-color:#005374;
+    color:white;
+}
+
+.modal-header, .modal-footer{
+    background-color: #005374;
+    color:white!important;
+}
+
+.btn-close{
+    color:white!important;
 }

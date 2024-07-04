@@ -1,5 +1,6 @@
 <style>
-    .modal-content, .btnTab {
+    .modal-content,
+    .btnTab {
         animation: fadeIn 0.5s ease-in-out;
     }
 
@@ -8,6 +9,7 @@
             opacity: 0;
             transform: scale(0.8);
         }
+
         to {
             opacity: 1;
             transform: scale(1);
@@ -27,14 +29,18 @@
         transition: background-color 0.3s, transform 0.3s;
     }
 
-    .btn-primary:hover{
+    .btn-primary:hover {
         background-color: #0056b3;
         transform: scale(1.05);
     }
 
-    .btnTab{ transition: 0.3s ease-in-out }
+    .btnTab {
+        transition: 0.3s ease-in-out
+    }
 
-    .btnTab:hover{ transform: scale(1.05); }
+    .btnTab:hover {
+        transform: scale(1.05);
+    }
 
     .btn-secondary {
         transition: background-color 0.3s, transform 0.3s;
@@ -64,51 +70,68 @@
         position: sticky;
         top: 0;
     }
-
 </style>
 <div>
     <div class="modal fade " id="modalcli" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <form class="modal-content" method="post" id="formUsers" enctype="multipart/form-data">
-                <div class="modal-header">
+                <div class="modal-header bg-dark text-light">
                     <h5 class="modal-title" id="modalTitleId">
-                        Modal title
+                        Personnel
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label>CIN</label><br>
-                    <input type="text" class="form-control" require name="cin" id="cin"><br>
-                    <span class="erreur"></span><br>
-                    <input type="hidden" class="form-control" require name="cinHide" id="cinHide"><br>
+                    <br>
+                    <label>CIN</label>
+                    <input type="text" class="form-control" require name="cin" id="cin">
+                    <span class="erreur"></span>
+                    <input type="hidden" class="" require name="cinHide" id="cinHide">
+                    <br>
+                    <label>Nom</label>
+                    <input type="text" required class="form-control" name="nom" id="nom">
+                    <span class="erreur"></span>
+                    <br>
+                    <label>Prenom</label>
+                    <input type="text" required class="form-control" name="prenom" id="prenom">
+                    <span class="erreur"></span>
+                    <br>
+                    <label>N° téléphone</label>
+                    <input type="text" required class="form-control" name="telephone" id="telephone">
+                    <span class="erreur"></span>
+                    <br>
+                    <label>Qualification</label>
+                    <select required class="form-select" name="qualif" id="qualif">
+                        <option value="Developpeur">Developpeur</option>
+                        <option value="AdminSys et Reseau">AdminSys et Reseau</option>
+                        <option value="Photographe">Photographe</option>
+                    </select>
+                    <span class="erreur"></span>
+                    <br>
+                    <label>Description</label>
+                    <textarea name="description" id="description" class="form-control"></textarea>
+                    <span class="erreur"></span>
+                    <br>
+                    <label>lien profile</label>
+                    <input type="text" class="form-control" name="lienProfile" id="lienProfile">
+                    <span class="erreur"></span>
+                    <br>
 
-                    <label>Nom</label><br>
-                    <input type="text" required class="form-control" name="nom" id="nom"><br>
-                    <span class="erreur"></span><br>
-
-                    <label>Prenom</label><br>
-                    <input type="text" required class="form-control" name="prenom" id="prenom"><br>
-                    <span class="erreur"></span><br>
-
-                    <label>N° téléphone</label><br>
-                    <input type="text" required class="form-control" name="telephone" id="telephone"><br>
-                    <span class="erreur"></span><br>
-
-
-                    <label>Mail</label><br>
-                    <input type="mail" required class="form-control" name="email" id="email"><br>
-                    <span class="erreur"></span><br>
-
-                    <input type="file" name="photos" id="photos">
-                    <img src="" name="pdp" id="pdp" alt="" style="width:100%">
+                    <label>Mail</label>
+                    <input type="mail" required class="form-control" name="email" id="email">
+                    <span class="erreur"></span>
+                    <br>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="closeModal" class="btn btn-secondary" data-bs-dismiss="modal">
+                <div class="d-flex p-3 justify-content-evenly align-items-center bg-dark text-light">
+                    <div>
+                        <input type="file" name="photos" id="photos" class="form-control">
+                    </div>
+                    <button type="button" id="closeModal" class="btn btn-secondary closeModal m-2" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary" id="saveBt" onclick="updateMembers()">Save</button>
-                    <button type="submit" name="btnSave" class="btn btn-primary" id="newBt"
+                    <button type="button" class="btn btn-primary m-2" id="saveBt" onclick="updateMembers()">Save</button>
+                    <button type="submit" name="btnSave m-2" class="btn btn-primary" id="newBt"
                         onclick="addMembers()">Ajouter</button>
                 </div>
             </form>
@@ -124,7 +147,7 @@
             <div class="text-right upgrade-btn m-3">
                 <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalcli"
                     class="btn btn-info text-white" data-toggle="modal" onclick="resetForm()"><i
-                        class="fa fa-user-plus p-2"></i>Nouveau persnnel</a>
+                        class="fa fa-user-plus p-2"></i>Nouveau personnel</a>
             </div>
         </div>
         <div class="container-fluid d-flex flex-column justify-content-between">
@@ -140,13 +163,14 @@
                             <table id="listPersonnel" class="table v-middle">
                                 <thead style="position:sticky; top:0;">
                                     <tr>
-                                        <th class="bg-dark border-top-0 p-3 text-light">Photo</th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">CIN</th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">Nom et prénom </th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">N° téléphone</th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">Email</th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">Modification</th>
-                                        <th class="bg-dark border-top-0 p-3 text-light">Suppression</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Photo</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">CIN</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Nom et prénom </th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">N° téléphone</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Qualification</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Email</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Modification</th>
+                                        <th class="bg-dark border-top-0 p-2 text-light">Suppression</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rows">
@@ -166,11 +190,15 @@
                                                 <?= $data["telephone"] ?>
                                             </td>
                                             <td style="padding-top:10px; padding-bottom:10px">
+                                                <?= $data["qualif"] ?>
+                                            </td>
+                                            <td style="padding-top:10px; padding-bottom:10px">
                                                 <?= $data["email"] ?>
                                             </td>
                                             <td style="padding-top:10px; padding-bottom:10px">
-                                                <a class="btn btn-success btnTab" data-bs-toggle="modal" data-bs-target="#modalcli"
-                                                    onclick="updateForm(<?= $data['cin'] ?>)"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-success btnTab" data-bs-toggle="modal"
+                                                    data-bs-target="#modalcli" onclick="updateForm(<?= $data['cin'] ?>)"><i
+                                                        class="fa fa-edit"></i></a>
                                             </td>
                                             <td style="padding-top:10px; padding-bottom:10px">
                                                 <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
@@ -203,6 +231,7 @@
             $('#email').val('');
             $('#photos').val(null);
             $('#telephone').val('');
+            $('#qualif').val('');
         }
 
         function updateForm(cin) {
@@ -227,6 +256,9 @@
                     $('#prenom').val(member.prenom);
                     $('#email').val(member.email);
                     $('#telephone').val(member.telephone);
+                    $('#qualif').val(member.qualif);
+                    $('#description').val(member.description);
+                    $('#lienProfile').val(member.lienProfile);
                 }
             );
 
@@ -239,6 +271,9 @@
             prenom = $('#prenom').val();
             email = $('#email').val();
             telephone = $('#telephone').val();
+            qualif = $('#qualif').val();
+            description = $('#description').val();
+            lienProfile = $('#lienProfile').val();
             photo = $('#photos')[0].files[0];
 
             formData = new FormData();
@@ -248,6 +283,9 @@
             formData.append('prenom', prenom);
             formData.append('email', email);
             formData.append('telephone', telephone);
+            formData.append('qualif', qualif);
+            formData.append('description', description);
+            formData.append('lienProfile', lienProfile);
 
             if (photo) {
                 formData.append('photo', photo);
@@ -292,6 +330,9 @@
                 email = $('#email').val();
                 telephone = $('#telephone').val();
                 photo = $('#photos')[0].files[0];
+                qualif = $('#qualif').val();
+                description = $('#description').val();
+                lienProfile = $('#lienProfile').val();
 
                 formData = new FormData();
                 formData.append('cin', cin);
@@ -299,6 +340,9 @@
                 formData.append('prenom', prenom);
                 formData.append('email', email);
                 formData.append('telephone', telephone);
+                formData.append('qualif', qualif);
+                formData.append('description', description);
+                formData.append('lienProfile', lienProfile);
 
                 if (photo) {
                     formData.append('photo', photo);
