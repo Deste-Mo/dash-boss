@@ -1,7 +1,8 @@
 <?php require_once '../api/read/listesComment.php' ?>
 <div class=" d-flex flex-column flex-shrink-0 p-3 bg-dark" style="width: 280px; height: 100%;z-index:500;">
-    <a href="/" class="d-flex align-items-center justify-content-center text-white text-decoration-none">
-        <img src="../assets/images/media-boss-logo.png" alt="" style="width:140px; height:140px;">
+    <a href="#" class="d-flex align-items-center justify-content-center text-white text-decoration-none">
+        <!-- <img src="../assets/images/media-boss-logo.png" alt="" style="width:140px; height:140px;"> -->
+        <img src="../assets/images/logo/logo.png" alt="" style="width:200px;">
     </a>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-3">
