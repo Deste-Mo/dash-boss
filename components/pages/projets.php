@@ -1,15 +1,23 @@
-<?php $rech = "";
+<?php 
+$rech = isset($_POST['search']) ? $_POST['search'] : "";
 $projets = getProjets($conn, $rech);
 ?>
 <div class="page-wrapper px-3" id="listProjet">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 style="text-align:center;" class="p-3">Les Projets</h2>
-        <div>
-            memme
+
+
+    <div class="page-wrapper px-3" id="listProjet">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 style="text-align:center;" class="p-3">Les Projets</h2>
+            <form method="post">
+                <div class="form-input">
+                    <input type="search" class="form-control" name="search" placeholder="Search...">
+                    <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+                </div>
+            </form>
         </div>
+
     </div>
-
-
+    <?php if (!empty($projets)): ?>
 
     <!-- Modal pour affecter les personnel a des taches-->
     <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -370,6 +378,7 @@ $projets = getProjets($conn, $rech);
             </div>
         <?php endforeach; ?>
     </div>
+    <?php endif; ?>
 
     <script>
         var usersModal = document.getElementById('modaltache');
