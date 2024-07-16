@@ -1,7 +1,7 @@
 <?php $rech = "";
 $projets = getProjets($conn, $rech);
 ?>
-<div class="page-wrapper px-3">
+<div class="page-wrapper px-3" id="listProjet">
     <div class="d-flex justify-content-between align-items-center">
         <h2 style="text-align:center;" class="p-3">Les Projets</h2>
     </div>
@@ -9,8 +9,7 @@ $projets = getProjets($conn, $rech);
 
 
     <!-- Modal pour affecter les personnel a des taches-->
-    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-        aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
             <form class="modal-content">
                 <div class="modal-header">
@@ -24,8 +23,8 @@ $projets = getProjets($conn, $rech);
                         <?php
                         $i = 1;
                         $users = getUser($conn);
-                        foreach ($users as $p):
-                            ?>
+                        foreach ($users as $p) :
+                        ?>
                             <option value="<?= $p['cin'] ?>">
                                 <?= $p['nom'] . " " . $p['prenom'] ?>
                             </option>
@@ -48,8 +47,7 @@ $projets = getProjets($conn, $rech);
     </script> -->
 
     <!-- Modal pour ajouter des taches a des projets-->
-    <div class="modal fade " id="modaltache" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade " id="modaltache" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <form method="POST" class="modal-content" action="../api/create/nouveauTache.php">
                 <div class="modal-header">
@@ -85,8 +83,7 @@ $projets = getProjets($conn, $rech);
 
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalProj" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalProj" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,8 +119,7 @@ $projets = getProjets($conn, $rech);
     <!-- Modal trigger button -->
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalChef" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalChef" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -137,8 +133,8 @@ $projets = getProjets($conn, $rech);
                         <?php
                         $i = 1;
                         $users = getUser($conn);
-                        foreach ($users as $p):
-                            ?>
+                        foreach ($users as $p) :
+                        ?>
                             <option value="<?= $p['cin'] ?>">
                                 <?= $p['nom'] . " " . $p['prenom'] ?>
                             </option>
@@ -172,31 +168,24 @@ $projets = getProjets($conn, $rech);
         );
     </script> -->
 
-    <div id="listProjet" class="container-fluid d-flex flex-column justify-content-between">
-        <div class="bg-dark d-flex justify-content-between p-3 position-sticky"
-            style="text-wrap:nowrap; top:100px;z-index:200;">
+    <div class="container-fluid d-flex flex-column justify-content-between">
+        <div class="bg-dark d-flex justify-content-between p-3 position-sticky" style="text-wrap:nowrap; top:100px;z-index:200;">
             <label for="nom" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Nom
                 Projet</label>
             <label for="nom" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Chef
                 Infos</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Duree</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Prevue</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Progression</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Chef</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Annuler</label>
-            <label for="action"
-                style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Supprimer</label>
-            <label for="action" class="btn btn-secondary"
-                style="font-weight: 400;color:white; text-align:center;padding:2px;cursor:pointer"
-                data-bs-toggle="modal" data-bs-target="#modalProj">+Projet</label>
+            <label for="action" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Duree</label>
+            <label for="action" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Fin</label>
+            <label for="action" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Progression</label>
+            <?php if ($_SESSION['auth'] == "admin") : ?>
+                <label for="action" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Chef</label>
+                <label for="action" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Supprimer</label>
+                <label for="action" class="btn btn-secondary" style="font-weight: 400;color:white; text-align:center;padding:2px;cursor:pointer" data-bs-toggle="modal" data-bs-target="#modalProj">+Projet</label>
+            <?php endif; ?>
+
         </div>
-        <?php 
-        foreach ($projets as $pr):
+        <?php
+        foreach ($projets as $pr) :
             $datep1 = date_create($pr['dateCom']);
             $datep = new DateTime($pr['dateCom']);
             $datep2 = date_create();
@@ -205,57 +194,42 @@ $projets = getProjets($conn, $rech);
             $respp = $dureep - $diffp;
             $finp = $datep->add(new DateInterval('P' . $dureep . 'D'));
             $perc = getPercent($conn, $pr['N_pro']);
-            ?>
-            <div class="bg-light d-flex flex-column justify-content-between m-3"
-                style="text-wrap:nowrap;border:1px solid #8ec7da99;border-radius:10px;">
+        ?>
+            <div class="bg-light d-flex flex-column justify-content-between m-3" style="text-wrap:nowrap;border:1px solid #8ec7da99;border-radius:10px;">
                 <div class="bg-light d-flex justify-content-between align-items-center m-3" style="text-wrap:wrap;">
-                    <label for="nom"
-                        style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nomP'] ?></label>
-                    <label for="nom"
-                        style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nom'] . " " . $pr['prenom'] ?></label>
-                    <label for="action"
-                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $diffp."/".$pr['duree']."jours" ?></label>
-                    <label for="action"
-                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $finp->format("d/m/y") ?></label>
-                    <label for="action"
-                        style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $perc . "%" ?></label>
-                    <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 400;color:black;padding:2px; width:100px;" data-bs-toggle="modal"
-                        data-bs-target="#modalChef">
-                        <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null): ?>
-                            <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>Affecter
+                    <label for="nom" style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nomP'] ?></label>
+                    <label for="nom" style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nom'] . " " . $pr['prenom'] ?></label>
+                    <label for="action" style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $diffp . "/" . $pr['duree'] . " jours" ?></label>
+                    <label for="action" style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $finp->format("d/m/y") ?></label>
+                    <label for="action" style="font-weight: 400;color:black; text-align:center;padding:2px; width:100px;"><?= $perc . "%" ?></label>
+                    <?php if ($_SESSION['auth'] == "admin") : ?>
+                        <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:black;padding:2px; width:100px;" data-bs-toggle="modal" data-bs-target="#modalChef">
+                            <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null) : ?>
+                                <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
+                                    <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>Affecter
+                                </button>
+                            <?php else : ?>
+                                <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
+                                    <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>changer
+                                </button>
+                            <?php endif; ?>
+                        </label>
+                        <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
+                            <button class="btn btn-danger" onclick="deleteProjet(<?= $pr['N_pro'] ?>)">
+                                <i class="fa fa-trash" aria-hidden="true" style="font-size: 12px;">
+                                </i>
                             </button>
-                        <?php else: ?>
-                            <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>changer
-                            </button>
-                        <?php endif; ?>
+                        </label>
+                    <?php endif; ?>
+
+
+                    <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
+                        <button class="btn btn-primary" onclick="seeTask('listTask<?= $pr['N_pro'] ?>')" style="background-color:white; color:black;border:none;"><i class="fa fa-chevron-down"></i>
+                        </button>
                     </label>
 
-                    <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 400;color:white; text-align:left;padding:2px; width:100px;">
-                        <button class="btn btn-secondary" onclick="annulerProjet(<?= $pr['N_pro'] ?>, $resp)">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </label>
-                    <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
-                        <button class="btn btn-danger" onclick="deleteProjet(<?= $pr['N_pro'] ?>)">
-                            <i class="fa fa-trash" aria-hidden="true" style="font-size: 12px;">
-                            </i>
-                        </button>
-                    </label>
-                    <label for="action" class="d-flex justify-content-end align-items-center"
-                        style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
-                        <button class="btn btn-primary"
-                            onclick="seeTask('listTask<?= $pr['N_pro'] ?>')"
-                            style="background-color:white; color:black;border:none;"><i class="fa fa-chevron-down"></i>
-                        </button>
-                    </label>
                 </div>
-                <div id="listTask<?= $pr['N_pro'] ?>"
-                    style="max-height: 600px;height:200px; overflow:auto; margin-bottom:40px; z-index:0;" class="taskContainer">
+                <div id="listTask<?= $pr['N_pro'] ?>" style="max-height: 400px;height:400px; overflow:auto; margin-bottom:40px; z-index:1;" class="taskContainer">
                     <div class="text-dark d-flex align-items-center justify-content-between">
                         <div>
                             <h2 style="text-align:center;" class="p-3">Les Taches</h2>
@@ -269,47 +243,41 @@ $projets = getProjets($conn, $rech);
                                         <!-- column -->
                                         <div class="col-12">
                                             <div class="card">
-                                                <div class="table-responsive" style="max-height: 200px; position: relative">
+                                                <div class="table-responsive" style="max-height:300px; position: relative;">
                                                     <table class="table v-middle">
-                                                        <thead style="position:sticky; top:0;">
+                                                        <thead style="position:sticky; top:0;z-index:1;">
                                                             <tr>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small"></th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Nom de
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small"></th>
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Nom de
                                                                     la tache</th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">
                                                                     Responsable</th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Duree
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Duree
                                                                 </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Prevue
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Fin
                                                                 </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">status
+                                                                <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">status
                                                                 </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Affecter
-                                                                </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Terminer
-                                                                </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">Annuler
-                                                                </th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small">
-                                                                    Supprimer</th>
-                                                                <th class="bg-dark border-top-0 p-1 text-light"
-                                                                    style="font-size:small"> <a type="button"
-                                                                        class="btn btn-primary btn-lg"
-                                                                        data-bs-toggle="modal" data-bs-target="#modaltache"
-                                                                        class="btn btn-info text-white" data-toggle="modal"
-                                                                        onclick="addTask(<?= $pr['N_pro'] ?>)">+<i
-                                                                            class="fa fa-tasks p-1"
-                                                                            style="font-size:small"></i></a></th>
+                                                                <?php if ($_SESSION['auth'] == "membre") : ?>
+                                                                    <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Affecter
+                                                                    </th>
+                                                                <?php endif; ?>
+                                                                <?php if ($_SESSION['auth'] == "membre") : ?>
+                                                                    <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Terminer
+                                                                    </th>
+                                                                <?php endif; ?>
+                                                                <?php if ($_SESSION['auth'] == "admin") : ?>
+                                                                    <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Annuler
+                                                                    </th>
+                                                                    <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">
+                                                                        Supprimer</th>
+                                                                <?php endif; ?>
+
+                                                                <?php if ($_SESSION['auth'] == "admin") : ?>
+                                                                    <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small"> <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modaltache" class="btn btn-info text-white" data-toggle="modal" onclick="addTask(<?= $pr['N_pro'] ?>)">+<i class="fa fa-tasks p-1" style="font-size:small"></i></a>
+                                                                    </th>
+                                                                <?php endif; ?>
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -317,7 +285,7 @@ $projets = getProjets($conn, $rech);
                                                             $i = 1;
                                                             $k = $pr['N_pro'];
                                                             $taches = getTacheByProj($conn, $k);
-                                                            foreach ($taches as $u):
+                                                            foreach ($taches as $u) :
                                                                 $date1 = date_create($u['dateCom']);
                                                                 $date = new DateTime($u['dateCom']);
                                                                 $date2 = date_create();
@@ -325,82 +293,63 @@ $projets = getProjets($conn, $rech);
                                                                 $diff = date_diff($date1, $date2)->format('%a');
                                                                 $res = $duree - $diff;
                                                                 $fin = $date->add(new DateInterval('P' . $duree . 'D'));
-                                                                ?>
+                                                            ?>
                                                                 <tr>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px;font-size:small">
+                                                                    <td style="padding-top:10px; padding-bottom:10px;font-size:small;<?php if($_SESSION['name'] == $u['nom'] . " " . $u['prenom']): ?> border-left:4px solid blue;<?php endif; ?>">
                                                                         <?= $i ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                    <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
                                                                         <?= $u['tache_nom'] ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                    <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
                                                                         <?= $u['nom'] . " " . $u['prenom'] ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
-                                                                        <?= $diff . "/" . $u['duree']."jours" ?>
+                                                                    <td style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
+                                                                        <?= $diff . "/" . $u['duree'] . " jours" ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
+                                                                    <td style="padding-top:10px; padding-bottom:10px; font-weight:800; text-align:left;font-size:small;">
                                                                         <?= $fin->format('d/m/y') ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                    <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
                                                                         <?php if ($u['etat'] === 'E') { ?>
-                                                                            <div class="spinner-border text-secondary"
-                                                                                role="status">
+                                                                            <div class="spinner-border text-secondary" role="status">
                                                                                 <span class="sr-only">Loading...</span>
                                                                             </div>
                                                                         <?php } else if ($u['etat'] === 'F') { ?>
-                                                                                Fini
+                                                                            Fini
                                                                         <?php } else { ?>
-                                                                                Libre
+                                                                            Libre
                                                                         <?php } ?>
                                                                     </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
-                                                                        <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F'): ?>
-                                                                            <button class="btn btn-primary" type="button"
-                                                                                data-bs-toggle="modal" data-bs-target="#modalId"
-                                                                                onclick="affectPersonnal(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i
-                                                                                    class="fa fa-plus"
-                                                                                    aria-hidden="true"></i></button>
-                                                                        <?php endif; ?>
-                                                                    </td>
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
-                                                                        <?php if ($u['etat'] === 'E'): ?>
-                                                                            <button class="btn btn-success"
-                                                                                onclick="clearTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i
-                                                                                    class="fa fa-check"
-                                                                                    aria-hidden="true"></i></button>
-                                                                        <?php endif; ?>
-                                                                    </td>
+                                                                    <?php if ($_SESSION['auth'] == "membre") : ?>
+                                                                        <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                            <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
+                                                                                <button class="btn btn-primary" type="button" onclick='affectPersonnal(<?= $u["tache_id"] ?>, <?= $_SESSION["cin"] ?>)'><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                                            <?php endif; ?>
+                                                                        </td>
+                                                                    <?php endif; ?>
+                                                                    <?php if ($_SESSION['name'] == $u['nom'] . " " . $u['prenom'] && $_SESSION['auth'] == "membre") : ?>
+                                                                        <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                            <?php if ($u['etat'] === 'E') : ?>
+                                                                                <button class="btn btn-success" onclick="clearTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                                                            <?php endif; ?>
+                                                                        </td>
+                                                                    <?php endif; ?>
 
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
-                                                                        <?php if ($u['etat'] === 'E'): ?>
-                                                                            <button class="btn btn-secondary"
-                                                                                onclick="annulerTask(<?= $u['tache_id'] ?>,<?= $res ?>, <?= $pr['N_pro'] ?>)"><i
-                                                                                    class="fa fa-times"
-                                                                                    aria-hidden="true"></i></button>
-                                                                        <?php endif; ?>
-                                                                    </td>
-
-                                                                    <td
-                                                                        style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
-                                                                        <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F'): ?>
-                                                                            <button class="btn btn-danger"
-                                                                                onclick="deleteTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i
-                                                                                    class="fa fa-trash"
-                                                                                    aria-hidden="true"></i></button>
-                                                                        <?php endif; ?>
-                                                                    </td>
+                                                                    <?php if ($_SESSION['auth'] == "admin") : ?>
+                                                                        <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                            <?php if ($u['etat'] === 'E') : ?>
+                                                                                <button class="btn btn-secondary" onclick="annulerTask(<?= $u['tache_id'] ?>,<?= $res ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                                            <?php endif; ?>
+                                                                        </td>
+                                                                        <td style="padding-top:10px; padding-bottom:10px; text-align:left;font-size:small;">
+                                                                            <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
+                                                                                <button class="btn btn-danger" onclick="deleteTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                                            <?php endif; ?>
+                                                                        </td>
+                                                                    <?php endif; ?>
                                                                 </tr>
-                                                                <?php $i++;
+                                                            <?php $i++;
                                                             endforeach;
                                                             ?>
                                                         </tbody>
@@ -422,7 +371,7 @@ $projets = getProjets($conn, $rech);
     <script>
         var usersModal = document.getElementById('modaltache');
 
-        usersModal.addEventListener('show.bs.modal', function (event) {
+        usersModal.addEventListener('show.bs.modal', function(event) {
             // Button that triggered the modal
             let button = event.relatedTarget;
             // Extract info from data-bs-* attributes
@@ -435,7 +384,7 @@ $projets = getProjets($conn, $rech);
         */
         var usersModal = document.getElementById('modaltache');
 
-        usersModal.addEventListener('show.bs.modal', function (event) {
+        usersModal.addEventListener('show.bs.modal', function(event) {
             // Button that triggered the modal
             let button = event.relatedTarget;
             // Extract info from data-bs-* attributes
@@ -451,7 +400,7 @@ $projets = getProjets($conn, $rech);
                 data: {
                     idToClear: num
                 },
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
                     if (response.error) {
                         alert(response.error);
@@ -472,7 +421,7 @@ $projets = getProjets($conn, $rech);
                     idToClear: num,
                     res: res
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.error) {
                         alert(response.error);
                     } else {
@@ -491,7 +440,7 @@ $projets = getProjets($conn, $rech);
                 data: {
                     idToDelete: num,
                 },
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
                     if (response.error) {
                         alert(response.error);
@@ -504,41 +453,38 @@ $projets = getProjets($conn, $rech);
             });
         }
 
-        function seeTask(idList){
-            $('#'+idList).toggleClass('d-none');
+        function seeTask(idList) {
+            $('#' + idList).toggleClass('d-none');
         }
 
-        function affectPersonnal(num, id_proj) {
-            $('#affect').on('click', function () {
-                $("#closeBt").click();
-                cinTo = $('#selectPersonnel').val();
-                $.ajax({
-                    type: "POST",
-                    url: "../api/update/taskPersonnal.php",
-                    data: {
-                        idToClear: num,
-                        cin: cinTo
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        if (response.error) {
-                            alert(response.error);
-                            return;
-                        } else {
-                            responses = jQuery.parseJSON(response);
-                            $('#listProjet').load(location.href + ' #listProjet');
-                            $('#selectPersonnel').val("");
-                            return;
-                        }
+        function affectPersonnal(num, cin) {
+            console.log(cin)
+            $.ajax({
+                type: "POST",
+                url: "../api/update/taskPersonnal.php",
+                data: {
+                    idToClear: num,
+                    cin: cin
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.error) {
+                        alert(response.error);
+                        return;
+                    } else {
+                        responses = jQuery.parseJSON(response);
+                        $('#listProjet').load(location.href + ' #listProjet');
+                        $('#selectPersonnel').val("");
+                        return;
                     }
-                });
-            })
+                }
+            });
         }
 
         function addTask(id_proj) {
             console.log(id_proj);
 
-            $('#btAddTask').on('click', function () {
+            $('#btAddTask').on('click', function() {
                 nom_tache = $('#nom_tache').val();
                 duree = $('#dureeTask').val();
                 unity = $('#uniteDeTemps').val();
@@ -555,7 +501,7 @@ $projets = getProjets($conn, $rech);
                         duree: full,
                         id: id_proj
                     },
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response);
                         id_proj = null;
                         if (response.error) {
@@ -563,6 +509,8 @@ $projets = getProjets($conn, $rech);
                         } else {
                             responses = jQuery.parseJSON(response);
                             alert(responses.success);
+                            duree = $('#dureeTask').val("");
+                            unity = $('#uniteDeTemps').val("");
                             $('#listProjet').load(location.href + ' #listProjet');
                             $('#selectPersonnel').val("");
                         }
@@ -571,7 +519,7 @@ $projets = getProjets($conn, $rech);
             })
         }
         /*
-*/
+         */
 
         function annulerProjet(num, res) {
             $.ajax({
@@ -581,7 +529,7 @@ $projets = getProjets($conn, $rech);
                     idToClear: num,
                     res: res
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.error) {
                         alert(response.error);
                     } else {
@@ -600,7 +548,7 @@ $projets = getProjets($conn, $rech);
                 data: {
                     idToDelete: num,
                 },
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
                     if (response.error) {
                         alert(response.error);
@@ -614,7 +562,7 @@ $projets = getProjets($conn, $rech);
         }
 
         function affectChef(num) {
-            $('#btSaveChef').on('click', function () {
+            $('#btSaveChef').on('click', function() {
                 $("#btCloseChef").click();
                 cinTo = $('#selectChef').val();
                 if (cinTo == "") {
@@ -628,7 +576,7 @@ $projets = getProjets($conn, $rech);
                         id: num,
                         cin: cinTo
                     },
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response);
                         if (response.error) {
                             alert(response.error);
@@ -662,7 +610,7 @@ $projets = getProjets($conn, $rech);
                     nom_projet: nom_projet,
                     duree: full
                 },
-                success: function (response) {
+                success: function(response) {
                     console.log(response);
                     if (response.error) {
                         alert(response.error);

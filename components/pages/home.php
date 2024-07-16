@@ -30,7 +30,18 @@
         font-size: 2em;
         color: #007BFF;
     }
-
+    body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        #taskChart {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 </style>
 <div class="cardss">
     <div class="card carte">
@@ -62,3 +73,39 @@
         <i class="fa fa-check icon"></i>
     </div>
 </div>
+    <div class="container">
+        <h1>Task Statistics</h1>
+        <canvas id="taskChart"></canvas>
+        <script src="../js/Chart.js"></script>
+        <script>
+            const ctx = document.getElementById('taskChart').getContext('2d');
+            const taskChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        label: 'Statistique des Taches',
+                        data: [
+                            <?php echo $nbrTacheFin["nombre"]; ?>,
+                            <?php echo $nbrTacheLibre["nombre"]; ?>,
+                            <?php echo $nbrTacheEnCours["nombre"] ; ?>
+                        ],
+                        backgroundColor: ['#4caf50', '#ffeb3b', '#2196f3'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Statistique des Taches'
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+

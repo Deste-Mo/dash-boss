@@ -3,7 +3,7 @@
     define("HOST", "localhost");
     define("DB_NAME", "media_boss");
     define("USER", "root");
-    define("PASSWORD", "");
+    define("PASSWORD", "mora");
 
     try {
         $conn = new PDO("mysql:host=". HOST . ";dbname=". DB_NAME, USER, PASSWORD);

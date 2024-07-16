@@ -3,7 +3,7 @@
 require_once '../db.php';
 
 
-$condition = isset($_POST['cin']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['qualif']) && isset($_POST['description']) && isset($_POST['lienProfile']);
+$condition = isset($_POST['cin']) && isset($_POST['nom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['qualif']) && isset($_POST['description']) && isset($_POST['lienProfile']) && isset($_POST['password']);
 
 $upload = null;
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($photo)) {
 
 if ($condition) {
     if (isset($_POST['prenom']) && !is_null($upload) && $upload) {
-        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, photo, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?,?) ";
+        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, photo, email,qualif, description, lienProfile,password) VALUES(?,?,?,?,?,?,?,?,?,?) ";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
@@ -66,11 +66,12 @@ if ($condition) {
             $_POST['email'],
             $_POST['qualif'],
             $_POST['description'],
-            $_POST['lienProfile']
+            $_POST['lienProfile'],
+            md5($_POST['password'])
         ];
 
     } else if (isset($_POST['prenom'])) {
-        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO personnel (cin, nom, prenom, telephone, email,qualif, description, lienProfile,password) VALUES(?,?,?,?,?,?,?,?,?)";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
@@ -79,10 +80,11 @@ if ($condition) {
             $_POST['email'],
             $_POST['qualif'],
             $_POST['description'],
-            $_POST['lienProfile']
+            $_POST['lienProfile'],
+            md5($_POST['password'])
         ];
     } else if (!is_null($upload) && $upload) {
-        $sql = "INSERT INTO personnel (cin, nom, telephone, photo, email,qualif, description, lienProfile) VALUES(?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO personnel (cin, nom, telephone, photo, email,qualif, description, lienProfile,password) VALUES(?,?,?,?,?,?,?,?,?)";
         $param = [
             $_POST['cin'],
             $_POST['nom'],
@@ -91,7 +93,8 @@ if ($condition) {
             $_POST['email'],
             $_POST['qualif'],
             $_POST['description'],
-            $_POST['lienProfile']
+            $_POST['lienProfile'],
+            md5($_POST['password'])
         ];
     }
 

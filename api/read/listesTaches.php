@@ -16,7 +16,7 @@ function getTache($conn)
 
 function getTacheByProj($conn, $id)
 {
-    $sql = "SELECT tache.*, DATE(tache.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM tache LEFT JOIN personnel on  tache.cin = personnel.cin WHERE id_projet = ?";
+    $sql = "SELECT tache.*, DATE(tache.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM tache LEFT JOIN personnel on  tache.cin = personnel.cin WHERE id_projet = ? ORDER BY tache.tache_id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 

@@ -8,6 +8,10 @@ if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
     header("location: ../index.php");
 }
 
+if( $_SESSION['auth'] != "admin" ){
+    header("location: ./menu.php");
+}
+
 require '../api/read/listesComment.php';
 
 ?>

@@ -29,6 +29,7 @@ function getPercent($conn, $idProj)
     if ($stmt1->rowCount() > 0 && $stmt2->rowCount() > 0 && $all != 0) {
         $fin = $stmt2->fetch(PDO::FETCH_ASSOC)['fin'];
         $percent = $fin * 100 / $all;
+        $percent = intval($percent);
     }
     else{
         $percent = "0";

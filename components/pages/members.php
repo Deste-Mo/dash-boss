@@ -80,7 +80,8 @@
                     <h5 class="modal-title" id="modalTitleId">
                         Personnel
                     </h5>
-                    <button type="button" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close closeModal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <br>
@@ -122,15 +123,21 @@
                     <input type="mail" required class="form-control" name="email" id="email">
                     <span class="erreur"></span>
                     <br>
+                    <label>Password</label>
+                    <input type="password" required class="form-control" name="password" id="password">
+                    <span class="erreur"></span>
+                    <br>
                 </div>
                 <div class="d-flex p-3 justify-content-evenly align-items-center bg-dark text-light">
                     <div>
                         <input type="file" name="photos" id="photos" class="form-control">
                     </div>
-                    <button type="button" id="closeModal" class="btn btn-secondary closeModal m-2" data-bs-dismiss="modal">
+                    <button type="button" id="closeModal" class="btn btn-secondary closeModal m-2"
+                        data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary m-2" id="saveBt" onclick="updateMembers()">Save</button>
+                    <button type="button" class="btn btn-primary m-2" id="saveBt"
+                        onclick="updateMembers()">Save</button>
                     <button type="submit" name="btnSave m-2" class="btn btn-primary" id="newBt"
                         onclick="addMembers()">Ajouter</button>
                 </div>
@@ -144,11 +151,13 @@
             <div>
                 <h2 style="text-align:center;" class="p-3">Information sur les personnels</h2>
             </div>
-            <div class="text-right upgrade-btn m-3">
-                <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalcli"
-                    class="btn btn-info text-white" data-toggle="modal" onclick="resetForm()"><i
-                        class="fa fa-user-plus p-2"></i>Nouveau personnel</a>
-            </div>
+            <?php if ($_SESSION['auth'] == "admin"): ?>
+                <div class="text-right upgrade-btn m-3">
+                    <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalcli"
+                        class="btn btn-info text-white" data-toggle="modal" onclick="resetForm()"><i
+                            class="fa fa-user-plus p-2"></i>Nouveau personnel</a>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="container-fluid d-flex flex-column justify-content-between">
             <div class="row">
@@ -170,7 +179,9 @@
                                         <th class="bg-dark border-top-0 p-2 text-light">Qualification</th>
                                         <th class="bg-dark border-top-0 p-2 text-light">Email</th>
                                         <th class="bg-dark border-top-0 p-2 text-light">Modification</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Suppression</th>
+                                        <?php if ($_SESSION['auth'] == "admin"): ?>
+                                            <th class="bg-dark border-top-0 p-2 text-light">Suppression</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody id="rows">
@@ -200,10 +211,12 @@
                                                     data-bs-target="#modalcli" onclick="updateForm(<?= $data['cin'] ?>)"><i
                                                         class="fa fa-edit"></i></a>
                                             </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
-                                                    class="btn btn-danger btnTab"><i class="fa fa-trash"></i></a>
-                                            </td>
+                                            <?php if ($_SESSION['auth'] == "admin"): ?>
+                                                <td style="padding-top:10px; padding-bottom:10px">
+                                                    <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
+                                                        class="btn btn-danger btnTab"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -232,6 +245,7 @@
             $('#photos').val(null);
             $('#telephone').val('');
             $('#qualif').val('');
+            $('#password').val('');
         }
 
         function updateForm(cin) {
@@ -259,6 +273,7 @@
                     $('#qualif').val(member.qualif);
                     $('#description').val(member.description);
                     $('#lienProfile').val(member.lienProfile);
+                    $('#password').val(member.password);
                 }
             );
 
@@ -274,6 +289,7 @@
             qualif = $('#qualif').val();
             description = $('#description').val();
             lienProfile = $('#lienProfile').val();
+            password = $('#password').val();
             photo = $('#photos')[0].files[0];
 
             formData = new FormData();
@@ -285,6 +301,7 @@
             formData.append('telephone', telephone);
             formData.append('qualif', qualif);
             formData.append('description', description);
+            formData.append('password', password);
             formData.append('lienProfile', lienProfile);
 
             if (photo) {
@@ -333,6 +350,7 @@
                 qualif = $('#qualif').val();
                 description = $('#description').val();
                 lienProfile = $('#lienProfile').val();
+                password = $('#password').val();
 
                 formData = new FormData();
                 formData.append('cin', cin);
@@ -343,6 +361,7 @@
                 formData.append('qualif', qualif);
                 formData.append('description', description);
                 formData.append('lienProfile', lienProfile);
+                formData.append('password', password);
 
                 if (photo) {
                     formData.append('photo', photo);

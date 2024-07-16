@@ -52,7 +52,7 @@ function controlTelephone(value, controls, span, message){
     }
 }
 function controlEmail(value, controls, span, message){
-    if(!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i) && value !="" ){
+    if(!value.match(emailRegex) && value !="" ){
         controls.classList.add("error");
         span.textContent=message;
         email=null;
