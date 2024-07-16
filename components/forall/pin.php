@@ -1,4 +1,4 @@
-<div class="bg-dark" style="width:100%; position:sticky; top:0;">
+<div class="bg-dark" style="width:100%; position:sticky; top:0; z-index: 1000;">
     <div class="card cards bg-dark">
         <div class="info">
             <img src="../assets/images/users/d2.jpg" alt="" width="15%">

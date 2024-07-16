@@ -4,6 +4,9 @@ $projets = getProjets($conn, $rech);
 <div class="page-wrapper px-3" id="listProjet">
     <div class="d-flex justify-content-between align-items-center">
         <h2 style="text-align:center;" class="p-3">Les Projets</h2>
+        <div>
+            memme
+        </div>
     </div>
 
 

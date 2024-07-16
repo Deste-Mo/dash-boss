@@ -3,7 +3,7 @@
     // global $conn;
 
     if(isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {
-        header("location: ../../views/menu.php?");
+        header("location: ../../views/menu.php?home=active");
     }
 ?>
 
