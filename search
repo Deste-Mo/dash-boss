@@ -1,0 +1,110 @@
+/dashboardMediaBoss
+    /components
+       /foral
+           header.php
+        /user
+            signin.php
+    /src
+        /utils
+            functions.php
+    /views
+        menu.php
+        clients.php
+        members.php
+        notification.php
+        projet.php
+    index.php
+    routes.php
+    api
+        db.php
+
+
+
+// routes.php
+<?php
+
+    require_once __DIR__ . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "utils" . DIRECTORY_SEPARATOR . "functions.php";
+
+    $routes = [
+        "/" => view("menu"),
+        "/clients" => view("clients"),
+        "/members" => view("members"),
+        "/notification" => view("notification"),
+        "/projet" => view("projet"),
+        "/signin" => user("signin"),
+    ];
+
+    return $routes;
+
+// src/utils/functions.php    
+<?php
+    function view($name) {
+        return "views" . DIRECTORY_SEPARATOR . $name . ".php";
+    }
+
+
+// api/db.php
+<?php
+    session_start();
+    define("HOST", "localhost");
+    define("DB_NAME", "media_boss");
+    define("USER", "root");
+    define("PASSWORD", "mora");
+
+    try {
+        $conn = new PDO("mysql:host=". HOST . ";dbname=". DB_NAME, USER, PASSWORD);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (Exception $e) {
+        echo $e;
+    }
+
+// index.php
+<?php
+    session_start();
+
+    include "api/db.php";
+
+    $routes = require_once __DIR__ . DIRECTORY_SEPARATOR . "routes.php";
+
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+    if (isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {
+        if ($path === "/") {
+            // header("location: views/menu.php?home=active");
+            require view("menu?home=active");
+            exit();
+        }
+    } else {
+        if ($path === "/") {
+            require user("signin");
+            exit();
+        }
+    }
+
+    if (array_key_exists($path, $routes)) {
+        include $routes[$path];
+    } else {
+        header("HTTP/1.0 404 Not Found");
+        include "views/404.php";
+    }
+
+// .htaccess
+RewriteEngine On
+
+# Handle requests to specific files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect all other requests to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+
+// src/utils/functions.php
+<?php
+    function view($name) {
+        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $name . '.php';
+    }
+
+    function user($name) {
+        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'components/user' . DIRECTORY_SEPARATOR . $name . '.php';
+    }
