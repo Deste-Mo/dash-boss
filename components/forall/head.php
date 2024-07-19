@@ -8,11 +8,6 @@
     <script src="js/sidebars.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <style>
-        * {
-            transition: 0.5s;
-        }
-        #headerDiv {
-            z-index: 1000000;
-        }
+        
     </style>
 </head>

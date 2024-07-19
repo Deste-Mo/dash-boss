@@ -1,15 +1,16 @@
-<script src="../js/ajax/jquery-3.7.1.min.js"></script>
-
+<script src="js/ajax/jquery-3.7.1.min.js"></script>
+<script src="js/sidebars.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('.messageContainer').addClass('d-none');
-        $('.taskContainer').addClass('d-none');
-        setInterval(() => {
-            $('#headerDiv').load(location.href + ' #headerDiv');
-            // $('#allMessage').load(location.href + ' #allMessage');
-        }, 1000);
-    });
-</script>
-</body>
+$(document).ready(() => {
+  $('#open-sidebar').click(() => {
+    $('#sidebar').addClass('active');
+    $('#sidebar-overlay').removeClass('d-none');
+  });
 
-</html>
+  $('#sidebar-overlay').click(() => {
+    $('#sidebar').removeClass('active');
+    $('#sidebar-overlay').addClass('d-none');
+  });
+});
+</script>

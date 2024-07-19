@@ -114,3 +114,18 @@
         // Use above variables to manipulate the DOM
     });
 </script>
+
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Listes des clients</a>
+        </li>
+    </ol>
+
+    <div class="row">
+        <table class="table">
+            <!-- A voir -->
+        </table>
+    </div>
+</div>

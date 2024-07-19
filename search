@@ -284,3 +284,10 @@
 
 
 Pourqoui les autre ne s'affiche pas à part header et head
+
+
+<?php
+    if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
+        header("Location: /signup");
+    }
+?>

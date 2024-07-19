@@ -1,26 +1,48 @@
 <?php
-    require "api/db.php";
-    if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
-        header("location: /signup");
+    if (!isset($_SESSION["auth"]) || empty($_SESSION["auth"])) {
+        header("Location: /signup");
+        exit();
     }
-?>
 
+    require 'api/read/listesClients.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listes des clients</title>
-    <?php require '../components/forall/head.php' ?>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Das</title>
+	<?php 
+        require 'components/forall/head.php';
+      ?>
+<body>
 
-<body style="height: 100vh; overflow-y:hidden;">
-    <div class="d-flex hero-dash">
-        <?php require '../components/forall/header.php' ?>
-        <div class="bg-light w-100">
-            <div id="homepage" style="height: 90vh; overflow:auto; position:relative;">
-                <?php require '../components/forall/pin.php'?>
-                <?php require '../components/pages/clients.php' ?>
-            </div>
-        </div>
+    <div class="main" id="main">
+		<?php 
+			require 'components/forall/header.php';
+		?>
+		<div class="right"> 
+			<div class="tab-content">
+				<!--Navigation-->
+				<?php 
+					require 'components/forall/pin.php';
+				?>
+
+				<!-- Overview -->
+				<div id="overview" class="tab-pane active"  >
+					<div class="content" >
+						<div class="content-wrapper">
+						<?php 
+							require 'components/pages/clients.php';
+						?>
+						</div>  
+					<!-- /content-wrapper-->
+					</div>
+				</div>
+			</div>
+			<!--Right panel-->
+		</div><!--Main-->
     </div>
-    <?php require '../components/forall/footer.php' ?>
+</body>
+</html>

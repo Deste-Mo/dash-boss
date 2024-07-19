@@ -9,22 +9,25 @@
     $query_params = isset($url_parts[1]) ? $url_parts[1] : '';
 
     switch ($path) {
-        case "/home":
+        case "/home?home=active":
             require view("menu");
             break;
         case "/clients":
             require view("clients");
             break;
-        case "/members":
+        case "/members?membre=active":
             require view("members");
             break;  
-        case "/notification":
+        case "/notification?notification=active":
             require view("notification");
             break;
         case "/projets":
             require view("projets");
             break;  
         case "/signup":
+            require user("signup");
+            break;
+        case "/clients":
             require user("signup");
             break;  
                 
