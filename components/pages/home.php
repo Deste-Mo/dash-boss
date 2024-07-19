@@ -1,3 +1,4 @@
+<!-- components/pages/home.php -->
 <style>
     .cardss {
         background: #fff;
@@ -76,7 +77,7 @@
     <div class="container">
         <h1>Task Statistics</h1>
         <canvas id="taskChart"></canvas>
-        <script src="../js/Chart.js"></script>
+        <script src="js/Chart.js"></script>
         <script>
             const ctx = document.getElementById('taskChart').getContext('2d');
             const taskChart = new Chart(ctx, {

@@ -3,7 +3,7 @@ function getTache($conn)
 {
     $sql = "SELECT tache.*, DATE(tache.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM tache LEFT JOIN personnel on  tache.cin = personnel.cin WHERE etat = 'N' OR etat = 'E'";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([]);
+    // $stmt->execute([]);
 
     if ($stmt->rowCount() > 0) {
         $task = $stmt->fetchAll(PDO::FETCH_ASSOC);

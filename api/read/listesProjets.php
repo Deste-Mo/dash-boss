@@ -1,6 +1,5 @@
 <?php
-function getProjets($conn, $rech)
-{
+function getProjets($conn, $rech) {
     $sql = "SELECT projet.*, DATE(projet.dateDeb) as dateCom ,personnel.nom,personnel.prenom FROM projet LEFT JOIN personnel on  projet.id_chef = personnel.cin WHERE dateFin IS NULL AND nomP LIKE '%".$rech."%' ORDER BY N_pro DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute([]);
@@ -15,8 +14,7 @@ function getProjets($conn, $rech)
 }
 
 
-function getPercent($conn, $idProj)
-{
+function getPercent($conn, $idProj) {
     $sql = "SELECT COUNT(tache_id) AS 'tout' FROM tache WHERE id_projet = ?";
     $sq2 = "SELECT COUNT(tache_id) AS 'fin' FROM tache WHERE id_projet = ? AND etat = 'F'";
     $stmt1 = $conn->prepare($sql);

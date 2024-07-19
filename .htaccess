@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteBase /final_mod/
 
 # Handle requests to specific files and directories
 RewriteCond %{REQUEST_FILENAME} !-f

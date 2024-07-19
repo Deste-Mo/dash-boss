@@ -1,5 +1,5 @@
 <?php
-    require_once "api/db.php";
+    include "api/db.php";
     global $conn;
 	
     if(!empty($_SESSION["auth"])) {

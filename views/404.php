@@ -46,7 +46,7 @@
 			<div>
 				<p class="display-4">Looks Like You're Lost</p>
 				<p>The page you are looking for not available...</p>
-				<a href="/dashboardMediaBoss/"
+				<a href="/"
 				class="text-white text-decoration-none px-4 py-3 
 						bg-success d-inline-block mt-2 rounded">
 					Go to Home
