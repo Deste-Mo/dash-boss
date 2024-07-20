@@ -9,6 +9,7 @@
         "/members" => view("members"),
         "/notification" => view("notification"),
         "/projets" => view("projets"),
+        "/taches" => view("taches"),
         "/signup" => user("signup"),
     ];
 

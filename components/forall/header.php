@@ -20,42 +20,41 @@
         <?php endif; ?>
     
         <li id="menu-item1">
-            <a href="#" class="toggle-custom nav-link text-white <?php if (isset($_GET["projet"])) echo 'active'; ?>" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+            <a href="#" class="toggle-custom nav-link text-white <?php if (isset($_GET["projet"]) || isset($_GET["tache"])) echo 'active'; ?>" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">
                     <i class="fa fa-spinner fa-lg"></i> Projets
                 </span>
             </a>
-            <ul class="nav collapse <?php if (isset($_GET["projet"])) echo 'show'; ?>" id="submenu1" role="menu" aria-labelledby="btn-1">
+            <ul class="nav collapse <?php if (isset($_GET["projet"]) || isset($_GET["tache"])) echo 'show'; ?>" id="submenu1" role="menu" aria-labelledby="btn-1">
                 <li>
                     <?php 
-                        if (isset($_GET["projet"])): 
+                        if (isset($_GET["projet"]) || isset($_GET["tache"])): 
                             try {
                                 $stmt = $conn->query('SELECT * FROM projet');
                                 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             } catch (PDOException $e) {
                                 echo 'Query failed: ' . $e->getMessage();
                             }
-                        ?>           
+                    ?>           
 
-                    <a href="#" class="toggle-custom nav-link text-white <?php if (isset($_GET["membre"])) echo 'active'; ?>" id="btn-1" data-toggle="collapse" data-target="#submenu_projet" aria-expanded="false">
+                    <a href="#" class="toggle-custom nav-link text-white <?php if (isset($_GET["membre"])) echo 'custom-active'; ?>" id="btn-1" data-toggle="collapse" data-target="#submenu_projet" aria-expanded="false">
                         <span class="glyphicon glyphicon-plus">
                             <i class="fa fa-list fa-lg" id="icon-toggle"></i> Liste des projets
                         </span>
                     </a>
 
-
-                    <!-- HTML Code -->
-                    <ul class="nav collapse <?php if (isset($_GET["projet"])) echo 'show'; ?>" id="submenu_projet" role="menu" aria-labelledby="btn-1">
-                        <?php foreach ($projects as $project) : ?>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-list fa-lg" id="icon-toggle"></i> <?php echo htmlspecialchars($project['nomP']); ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-</ul>
+                    <ul class="nav collapse <?php if (isset($_GET["projet"]) || isset($_GET["tache"])) echo 'show'; ?>" id="submenu_projet" role="menu" aria-labelledby="btn-1">
+                    <?php foreach ($projects as $project) : ?>
+                        <li class="<?php if (isset($_GET['tache']) && $_GET['tache'] == $project['N_pro']) echo 'custom-active-li'; ?>">
+                            <a href="/taches?tache=<?php echo $project['N_pro']; ?>&projet=<?php echo $project['N_pro']; ?>"
+                                class="nav-link text-white <?php if (isset($_GET['tache']) && $_GET['tache'] == $project['N_pro']) echo 'custom-active'; ?>">
+                                <i class="fa fa-check fa-lg <?php if (isset($_GET['tache']) && $_GET['tache'] == $project['N_pro']) echo 'custom-active-icon'; ?>" id="icon-toggle"></i> <?php echo htmlspecialchars($project['nomP']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
                     <?php else: ?>
-                    <a href="/projets?projet=active" class="<?php if (isset($_GET["projet"])) echo 'active'; ?>">
+                    <a href="/projets?projet=active" class="<?php if (isset($_GET["projet"])) echo 'custom-active'; ?>">
                         <i class="fa fa-list" aria-hidden="true"></i> Liste des projets
                     </a>
                     <?php endif; ?>
@@ -67,6 +66,9 @@
                 </li>
             </ul>
         </li>
+
+
+
 
         <li id="menu-item3">
             <a href="/notification?notification=active"

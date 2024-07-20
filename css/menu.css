@@ -365,3 +365,34 @@ hr {
 .py-15 {
     padding: 15px 0;
 }
+
+/* Style pour les éléments <a> personnalisés actifs sans arrière-plan */
+.nav-link.custom-active {
+    color: #fff; /* Couleur du texte pour l'élément actif */
+    font-weight: bold; /* Optionnel : Mettre le texte en gras pour plus de visibilité */
+    border-left: 1px solid #28a745; /* Bordure gauche pour l'élément actif */
+}
+
+/* Style pour les icônes actives */
+.custom-active-icon {
+    color: #28a745; /* Couleur de l'icône pour l'élément actif */
+}
+
+/* Style pour les éléments <li> personnalisés actifs */
+li.custom-active-li {
+    /* Pas de couleur de fond */
+}
+
+/* Style pour les sous-menus */
+.nav-collapse {
+    background-color: #343a40; /* Couleur de fond pour les sous-menus */
+}
+
+.nav-collapse .nav-link {
+    color: #fff; /* Couleur du texte pour les sous-menus */
+}
+
+/* Style pour le lien personnalisé actif dans les sous-menus */
+.nav-collapse .nav-link.custom-active {
+    color: #495057; /* Couleur du texte pour l'élément actif dans le sous-menu */
+}

@@ -24,12 +24,15 @@
         case "/projets":
             require view("projets");
             break;  
+        case "/taches":
+            require view("taches");
+            break;  
         case "/signup":
             require user("signup");
             break;
         case "/clients":
             require user("signup");
-            break;  
+            break;
                 
         default:
             if (isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {

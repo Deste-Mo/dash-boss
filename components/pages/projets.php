@@ -67,13 +67,12 @@
                             </a>
                         </td>
                         <?php endif; ?>
-
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-
+    <?php endif; ?>
     
         <!-- Modal pour affecter les personnel a des taches-->
         <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -150,33 +149,34 @@
     <!-- Modal trigger button -->
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalChef" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalProj" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">
-                        Chef de Projet
+                        Nouveau Projet
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-5">
-                    <select class="form-select p-2" name="selectChef" id="selectChef">
-                        <?php
-                        $i = 1;
-                        $users = getUser($conn);
-                        foreach ($users as $p) :
-                        ?>
-                            <option value="<?= $p['cin'] ?>">
-                                <?= $p['nom'] . " " . $p['prenom'] ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="modal-body d-flex align-items-center justify-content-between">
+                    <div class="mx-4">
+                        <label class="m-2">Nom du Projet</label>
+                        <input type="text" required class="form-control" id="nom_projet" name="nom_projet">
+                    </div>
+                    <div>
+                        <label class="m-2 d-block">Duree du Projet</label>
+                        <input type="text" name="dureeProjet" id="dureeProjet" class="form-control w-25 d-inline">
+                        <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-select w-50 d-inline">
+                            <option value="jours">Jours</option>
+                            <option value="mois">Mois</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btCloseChef" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button id="closeModalProjet" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button id="btSaveChef" type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="ajouterProjet()">Save</button>
                 </div>
             </div>
         </div>
@@ -403,7 +403,6 @@
             </div>
         <?php endforeach; ?>
     </div>
-    <?php endif; ?>
 
     <script>
         var usersModal = document.getElementById('modaltache');
@@ -433,7 +432,7 @@
         function clearTask(num, id_proj) {
             $.ajax({
                 type: "POST",
-                url: "../api/other/clearTask.php",
+                url: "api/other/clearTask.php",
                 data: {
                     idToClear: num
                 },
@@ -453,7 +452,7 @@
         function annulerTask(num, res, id_proj) {
             $.ajax({
                 type: "POST",
-                url: "../api/other/annulerTask.php",
+                url: "api/other/annulerTask.php",
                 data: {
                     idToClear: num,
                     res: res
@@ -473,7 +472,7 @@
         function deleteTask(num, id_proj) {
             $.ajax({
                 type: "POST",
-                url: "../api/delete/deleteTask.php",
+                url: "api/delete/deleteTask.php",
                 data: {
                     idToDelete: num,
                 },
@@ -498,7 +497,7 @@
             console.log(cin)
             $.ajax({
                 type: "POST",
-                url: "../api/update/taskPersonnal.php",
+                url: "api/update/taskPersonnal.php",
                 data: {
                     idToClear: num,
                     cin: cin
@@ -532,7 +531,7 @@
                 $('#nom_tache').val("");
                 $.ajax({
                     type: "POST",
-                    url: "../api/create/nouveauTache.php",
+                    url: "api/create/nouveauTache.php",
                     data: {
                         nom_tache: nom_tache,
                         duree: full,
@@ -561,7 +560,7 @@
         function annulerProjet(num, res) {
             $.ajax({
                 type: "POST",
-                url: "../api/other/annulerTask.php",
+                url: "api/other/annulerTask.php",
                 data: {
                     idToClear: num,
                     res: res
@@ -581,7 +580,7 @@
         function deleteProjet(num) {
             $.ajax({
                 type: "POST",
-                url: "../api/delete/deleteProjet.php",
+                url: "api/delete/deleteProjet.php",
                 data: {
                     idToDelete: num,
                 },
@@ -608,7 +607,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: "../api/update/setChefProjet.php",
+                    url: "api/update/setChefProjet.php",
                     data: {
                         id: num,
                         cin: cinTo
@@ -630,34 +629,38 @@
         }
 
         function ajouterProjet() {
-            nom_projet = $('#nom_projet').val();
-            duree = $('#dureeProjet').val();
-            unity = $('#uniteDeTempsP').val();
-            console.log(unity);
-            full = unity == 'mois' ? duree * 30 : duree;
+            const nom_projet = $('#nom_projet').val();
+            const duree = $('#dureeProjet').val();
+            const unity = $('#uniteDeTempsP').val();
+            const full = unity == 'mois' ? duree * 30 : duree;
+
+            if (!nom_projet || !duree) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
 
             $('#closeModalProjet').click();
             $('#nom_projet').val("");
             $('#dureeProjet').val("");
             $('#uniteDeTempsP').val("");
+
             $.ajax({
                 type: "POST",
-                url: "../api/create/newProjet.php",
+                url: "api/create/newProjet.php",
                 data: {
                     nom_projet: nom_projet,
                     duree: full
                 },
                 success: function(response) {
-                    console.log(response);
-                    if (response.error) {
-                        alert(response.error);
+                    const responses = JSON.parse(response);
+                    if (responses.error) {
+                        alert(responses.error);
                     } else {
-                        responses = jQuery.parseJSON(response);
                         alert(responses.success);
                         $('#listProjet').load(location.href + ' #listProjet');
                     }
                 }
-            })
+            });
         }
     </script>
 </div>
