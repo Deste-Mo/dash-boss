@@ -7,7 +7,11 @@
     <script src="js/ajax/jquery-3.7.1.min.js"></script>
     <script src="js/sidebars.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
     <style>
-        
+        .bg-default {
+            background-color: #343a40; /* Couleur par défaut pour la navbar */
+        }
     </style>
 </head>

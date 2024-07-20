@@ -1,151 +1,131 @@
 <?php 
-    $rech = isset($_POST['search']) ? $_POST['search'] : "";
-    $projets = getProjets($conn, $rech);
+$rech = isset($_POST['search']) ? $_POST['search'] : "";
+$projets = getProjets($conn, $rech);
 ?>
-<div class="container-fluid">
-    <!--======================================================  Content  ====================================================-->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item text-right">
-            <a href="#">Listes des projets</a>
-            <?php if ($_SESSION['auth'] == "admin") : ?>
-                <a href="#" class="text-right" style="margin-left:100px" for="action" data-bs-toggle="modal" data-bs-target="#modalProj">
-                    <span>+</span> Nouveau projet
-                </a>
-            <?php endif; ?>
-        </li>
-    </ol>
-    <?php if (!empty($projets)): ?>
-        <div class="table-responsive-sm">
-            <table class="table table-hover ">
-                <thead>
-                    <tr class="table-primary">
-                        <th>Nom de projet </th>
-                        <th>Chef info</th>
-                        <th>Durée</th>
-                        <th>Fin</th>
-                        <th>Progression</th>
-                        <?php if ($_SESSION['auth'] == "admin") : ?>
-                            <th>Action1</th>
-                            <th>Action2</th>
-                        <?php endif; ?>
-                    </tr>
-                </thead>
+<div class="page-wrapper px-3" id="listProjet">
 
-                <tbody>
-                    <?php
-                        foreach ($projets as $pr) :
-                            $datep1 = date_create($pr['dateCom']);
-                            $datep = new DateTime($pr['dateCom']);
-                            $datep2 = date_create();
-                            $dureep = intval(explode(" ", $pr['duree'])[0]);
-                            $diffp = date_diff($datep1, $datep2)->format('%a');
-                            $respp = $dureep - $diffp;
-                            $finp = $datep->add(new DateInterval('P' . $dureep . 'D'));
-                            $perc = getPercent($conn, $pr['N_pro']);
-                        ?>
-                    <tr>
-                        <td><?= $pr['nomP'] ?></td>
-                        <td><?= $pr['nom'] . " " . $pr['prenom'] ?></td>
-                        <td><?= $diffp . "/" . $pr['duree'] . " jours" ?></td>
-                        <td><?= $finp->format("d/m/y") ?></td>
-                        <td><?= $perc . "%" ?></td>
-                        <?php if ($_SESSION['auth'] == "admin") : ?>
-                        <td for="action" class="text-right" data-bs-toggle="modal" data-bs-target="#modalChef">
-                            <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null) : ?>
-                                <a href="#" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                    <i class="fa fa-user" aria-hidden="true"></i>Affecter
-                                </a>
-                            <?php else : ?>
-                                <a href="#" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                    <i class="fa fa-user mr-2" aria-hidden="true"></i>Edité
-                                </a>
-                            <?php endif; ?>
-                        </td>
-                        <td for="action" class="text-right">
-                            <a href="#" onclick="deleteProjet(<?= $pr['N_pro'] ?>)">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <?php endif; ?>
 
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+    <div class="page-wrapper px-3" id="listProjet">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 style="text-align:center;" class="p-3">Les Projets</h2>
+            <form method="post">
+                <div class="form-input">
+                    <input type="search" class="form-control" name="search" placeholder="Search...">
+                    <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+                </div>
+            </form>
         </div>
 
-    
-        <!-- Modal pour affecter les personnel a des taches-->
-        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                <form class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">
-                            Taches Personnel
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <?php if (!empty($projets)): ?>
+
+    <!-- Modal pour affecter les personnel a des taches-->
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <form class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Taches Personnel
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select" name="selectPersonnel" id="selectPersonnel">
+                        <?php
+                        $i = 1;
+                        $users = getUser($conn);
+                        foreach ($users as $p) :
+                        ?>
+                            <option value="<?= $p['cin'] ?>">
+                                <?= $p['nom'] . " " . $p['prenom'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeBt" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" id="affect" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <script>
+        const myModal = new bootstrap.Modal(
+            document.getElementById("modalId")
+        );
+    </script> -->
+
+    <!-- Modal pour ajouter des taches a des projets-->
+    <div class="modal fade " id="modaltache" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+            <form method="POST" class="modal-content" action="../api/create/nouveauTache.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Nouveau tache
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-between">
+                    <div class="mx-3">
+                        <label class="m-2">Nom du Tache</label>
+                        <input type="text" required class="form-control" id="nom_tache" name="nom_tache">
                     </div>
-                    <div class="modal-body">
-                        <select class="form-select" name="selectPersonnel" id="selectPersonnel">
-                            <?php
-                            $i = 1;
-                            $users = getUser($conn);
-                            foreach ($users as $p) :
-                            ?>
-                                <option value="<?= $p['cin'] ?>">
-                                    <?= $p['nom'] . " " . $p['prenom'] ?>
-                                </option>
-                            <?php endforeach; ?>
+                    <div>
+                        <label class="m-2 d-block">Duree du Tache</label>
+                        <input type="text" name="dureeTask" id="dureeTask" class="form-control w-25 d-inline">
+                        <select name="uniteDeTemps" id="uniteDeTemps" class="form-select w-50 d-inline">
+                            <option value="jours">Jours</option>
+                            <option value="mois">Mois</option>
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="closeBt" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="button" id="affect" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" id="btAddTask" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
         </div>
-        <!-- <script>
-            const myModal = new bootstrap.Modal(
-                document.getElementById("modalId")
-            );
-        </script> -->
+    </div>
+    <!-- Modal trigger button -->
 
-        <!-- Modal Body -->
-        <div class="modal fade" id="modalProj" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">
-                            Nouveau Projet
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="modalProj" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        Nouveau Projet
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-between">
+                    <div class="mx-4">
+                        <label class="m-2">Nom du Projet</label>
+                        <input type="text" required class="form-control" id="nom_projet" name="nom_projet">
                     </div>
-                    <div class="modal-body d-flex align-items-center justify-content-between">
-                        <div class="mx-4">
-                            <label class="m-2">Nom du Projet</label>
-                            <input type="text" required class="form-control" id="nom_projet" name="nom_projet">
-                        </div>
-                        <div>
-                            <label class="m-2 d-block">Duree du Projet</label>
-                            <input type="text" name="dureeProjet" id="dureeProjet" class="form-control w-25 d-inline">
-                            <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-select w-50 d-inline">
-                                <option value="jours">Jours</option>
-                                <option value="mois">Mois</option>
-                            </select>
-                        </div>
+                    <div>
+                        <label class="m-2 d-block">Duree du Projet</label>
+                        <input type="text" name="dureeProjet" id="dureeProjet" class="form-control w-25 d-inline">
+                        <select name="uniteDeTempsP" id="uniteDeTempsP" class="form-select w-50 d-inline">
+                            <option value="jours">Jours</option>
+                            <option value="mois">Mois</option>
+                        </select>
                     </div>
-                    <div class="modal-footer">
-                        <button id="closeModalProjet" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="ajouterProjet()">Save</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeModalProjet" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="ajouterProjet()">Save</button>
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- Modal trigger button -->
     <!-- Modal Body -->
@@ -200,8 +180,6 @@
     </script> -->
 
     <div class="container-fluid d-flex flex-column justify-content-between">
-
-        <!-- VITA -->
         <div class="bg-dark d-flex justify-content-between p-3 position-sticky" style="text-wrap:nowrap; top:100px;z-index:200;">
             <label for="nom" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">Nom
                 Projet</label>
@@ -218,16 +196,16 @@
 
         </div>
         <?php
-            foreach ($projets as $pr) :
-                $datep1 = date_create($pr['dateCom']);
-                $datep = new DateTime($pr['dateCom']);
-                $datep2 = date_create();
-                $dureep = intval(explode(" ", $pr['duree'])[0]);
-                $diffp = date_diff($datep1, $datep2)->format('%a');
-                $respp = $dureep - $diffp;
-                $finp = $datep->add(new DateInterval('P' . $dureep . 'D'));
-                $perc = getPercent($conn, $pr['N_pro']);
-            ?>
+        foreach ($projets as $pr) :
+            $datep1 = date_create($pr['dateCom']);
+            $datep = new DateTime($pr['dateCom']);
+            $datep2 = date_create();
+            $dureep = intval(explode(" ", $pr['duree'])[0]);
+            $diffp = date_diff($datep1, $datep2)->format('%a');
+            $respp = $dureep - $diffp;
+            $finp = $datep->add(new DateInterval('P' . $dureep . 'D'));
+            $perc = getPercent($conn, $pr['N_pro']);
+        ?>
             <div class="bg-light d-flex flex-column justify-content-between m-3" style="text-wrap:nowrap;border:1px solid #8ec7da99;border-radius:10px;">
                 <div class="bg-light d-flex justify-content-between align-items-center m-3" style="text-wrap:wrap;">
                     <label for="nom" style="font-weight: 400;color:black; text-align:left;padding:2px; width:100px;"><?= $pr['nomP'] ?></label>
@@ -238,15 +216,13 @@
                     <?php if ($_SESSION['auth'] == "admin") : ?>
                         <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:black;padding:2px; width:100px;" data-bs-toggle="modal" data-bs-target="#modalChef">
                             <?php if ($pr['id_chef'] == "" || $pr['id_chef'] == null) : ?>
-                                <a href="#" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                    <!-- <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i> -->
-                                    Affecter
-                                </a>
+                                <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
+                                    <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>Affecter
+                                </button>
                             <?php else : ?>
-                                <a href="#" onclick="affectChef(<?= $pr['N_pro'] ?>)">
-                                    <!-- <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i> -->
-                                    changer
-                                </a>
+                                <button class="btn btn-primary" onclick="affectChef(<?= $pr['N_pro'] ?>)">
+                                    <i class="fa fa-user" aria-hidden="true" style="font-size: 12px;"></i>changer
+                                </button>
                             <?php endif; ?>
                         </label>
                         <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
@@ -257,7 +233,6 @@
                         </label>
                     <?php endif; ?>
 
-                    <!-- VITA faran eto -->
 
                     <label for="action" class="d-flex justify-content-end align-items-center" style="font-weight: 400;color:white; text-align:center;padding:2px; width:100px;">
                         <button class="btn btn-primary" onclick="seeTask('listTask<?= $pr['N_pro'] ?>')" style="background-color:white; color:black;border:none;"><i class="fa fa-chevron-down"></i>
@@ -294,14 +269,14 @@
                                                                 </th>
                                                                 <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">status
                                                                 </th>
-                                                                <?php //if ($_SESSION['auth'] == "membre") : ?>
+                                                                <?php if ($_SESSION['auth'] == "membre") : ?>
                                                                     <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Affecter
                                                                     </th>
-                                                                <?php //endif; ?>
-                                                                <?php //if ($_SESSION['auth'] == "membre") : ?>
+                                                                <?php endif; ?>
+                                                                <?php if ($_SESSION['auth'] == "membre") : ?>
                                                                     <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Terminer
                                                                     </th>
-                                                                <?php //endif; ?>
+                                                                <?php endif; ?>
                                                                 <?php if ($_SESSION['auth'] == "admin") : ?>
                                                                     <th class="bg-dark border-top-0 p-1 text-light" style="font-size:small">Annuler
                                                                     </th>

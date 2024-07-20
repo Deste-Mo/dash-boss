@@ -13,7 +13,6 @@
     $query6 = $conn->query("SELECT COUNT(*) as nombre FROM tache WHERE etat = 'F'");
     $nbrTacheFin = $query6->fetch();
 
-    require 'api/read/listesComment.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +41,9 @@
 				<div id="overview" class="tab-pane active"  >
 					<div class="content" >
 						<div class="content-wrapper">
-						<?php 
-							require 'components/pages/home.php';
-						?>
+							<?php 
+								require 'components/pages/home.php';
+							?>
 						</div>  
 					<!-- /content-wrapper-->
 					</div>

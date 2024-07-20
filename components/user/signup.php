@@ -1,6 +1,4 @@
 <?php
-	// include "../../api/db.php";
-
 	if (isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {
         header("Location: /home?home=active");
 		exit();
@@ -12,10 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
-    <link rel="stylesheet" href="../../css/all.min.css">
-    <link rel="stylesheet" href="../../css/sign.css">
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="shortcut icon" href="../assets/images/logo/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/sign.css">
+    <link rel="shortcut icon" href="assets/images/logo/logo.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -34,9 +31,10 @@
                     <button class="button login__submit">
                         <span class="button__text" name="bot_conn">Se connecter</span>
                         <i class="button__icon fas fa-chevron-right"></i>
-                    </button><br>
+                    </button>
+                    <br>
                     <?php if (isset($_GET["message"])): ?>
-                    <div class="alert alert-danger">Votre email ou téléphone ou mot de passe est incorrect</div>
+                        <div class="alert alert-danger">Votre email ou téléphone ou mot de passe est incorrect</div>
                     <?php endif ?>
                 </form>
             </div>

@@ -1,21 +1,75 @@
-<div class="page-wrapper px-3">
-    <div class="bg-light text-dark d-flex align-items-center justify-content-between">
-        <div>
-            <h2 style="text-align:center;" class="p-3">Les Notifications</h2>
-        </div>
+<div class="container-fluid">
+    <!--======================================================  Content  ====================================================-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Listes des commentaires</a>
+        </li>
+    </ol>
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr class="table-primary">
+                    <th>Nom de </th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                    $comment = getComment($conn);
+                    foreach ($comment as $c):
+                ?>
+                <tr>
+                    <td ><?= $c['comment_name']; ?></td>
+                    <td ><?= $c['comment_mail']; ?></td>
+                    <td class="text-right">
+                        <a href="#" data-toggle="modal" data-target="#myModal<?= $c['comment_id']; ?>" onclick="seeMessage(this, '<?= $c['comment_id'] ?>', '<?= $c['status'] ?>')">
+                            Voir le commentaire
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php foreach ($comment as $c): ?>
+            <div class="modal" id="myModal<?= $c['comment_id']; ?>">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Notification</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <span>
+                                <?= $c['comment_message']; ?>
+                            </span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <label for="Date"><?= $c['comment_date']; ?></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
     </div>
     <div id="allMessage" class="container-fluid d-flex flex-column justify-content-between">
-        <div class="bg-dark d-flex justify-content-between p-3">
+        <!-- <div class="bg-dark d-flex justify-content-between p-3">
             <label for="nom" style="font-weight: 400;color:white; text-align:center;">Nom</label>
             <label for="nom" style="font-weight: 400;color:white; text-align:center;">email</label>
             <label for="action" style="font-weight: 400;color:white; text-align:center;">Message</label>
-        </div>
+        </div> -->
         <div style="max-height: 400px; overflow:auto;">
             <?php
             $comment = getComment($conn);
             foreach ($comment as $c):
                 ?>
-                <div class="m-2" id="<?= $c['comment_id'] ?>">
+                <!-- <div class="m-2" id="<?= $c['comment_id'] ?>">
                     <div class="d-flex justify-content-between p-2 "
                         style="background-color:<?= $c['status'] == 'N' ? 'lightBlue' : 'white' ?>;color:white;">
                         <label for="nom"
@@ -31,14 +85,13 @@
                         <a class="m-2" href="mailto:<?= $c['comment_mail'] ?>"><button class="btn text-white"
                                 id="respond"><i class="fa fa-reply"></i></button></a>
                     </div>
-                </div>
+                </div> -->
             <?php endforeach; ?>
         </div>
     </div>
 </div>
 
 <script>
-
     function seeMessage(button, id, status) {
         var container = $(button).closest('div').next('.messageContainer');
         container.slideToggle().toggleClass('d-none');
@@ -46,7 +99,7 @@
         if (status == 'N') {
             $.ajax({
                 type: "POST",
-                url: "../api/update/setNotifVue.php",
+                url: "api/update/setNotifVue.php",
                 data: {
                     idTo: id
                 },
