@@ -35,9 +35,4 @@
         }
     }
 
-    // header("location: /");
-    if(isset($_SESSION)) {
-        echo "reussi";
-    } else {
-        echo "echec";
-    }
+    header("location: /");
