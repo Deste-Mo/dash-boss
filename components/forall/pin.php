@@ -33,7 +33,7 @@
                         <i class="fa fa-fw fa-circle"></i>
                     </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">Alerts:</h6>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
@@ -64,7 +64,7 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item small" href="#">Voir toutes les alertes</a>
-                </div>
+                </div> -->
             </li>
 
             <!-- Logout -->
@@ -72,7 +72,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <!-- Display user image and name -->
-                    <img src="assets/images/users/d2.jpg/<?php echo htmlspecialchars($userImage); ?>" alt="User Image" class="rounded-circle" style="width: 36px; height: 36px;">
+                    <img src="assets/uploads/<?php echo htmlspecialchars($userImage); ?>" alt="User Image" class="rounded-circle" style="width: 36px; height: 36px;">
                     <span class="d-lg-none"><?php echo htmlspecialchars($userName); ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">

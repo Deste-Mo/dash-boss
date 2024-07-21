@@ -3,6 +3,12 @@
         header("Location: /signup");
         exit();
     }
+	
+    if( $_SESSION['auth'] != "admin" ){
+        // header("location: /notification?notification=active");
+        header("location: /home?home=active");
+		
+    }
 
     require 'api/read/listesClients.php';
 ?>

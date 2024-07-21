@@ -71,7 +71,75 @@
         top: 0;
     }
 </style>
-<div>
+
+<div class="container-fluid">
+    <!--======================================================  Content  ====================================================-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Listes des employés</a>
+            <?php if ($_SESSION['auth'] == "admin") : ?>
+                <a href="#" class="text-right" style="margin-left:100px" data-toggle="modal" onclick="resetForm()" data-bs-toggle="modal" data-bs-target="#modalcli">
+                    <span class="fa fa-user-plus"></span> Nouveau projet
+                </a>
+            <?php endif; ?>
+        </li>
+    </ol>
+
+    <?php if (isset($_GET["message"])): ?>
+        <?= "<script> setTimeout(() => {document.querySelector('.alert').remove(); document.location.href = '../views/members.php?membre=active';}, 1500);</script>"; ?>
+        <div class="alert alert-danger">Le CIN ou le numero telephone ou l'email existe deja</div>
+    <?php endif ?>
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr class="table-primary">
+                    <th>Photo</th>
+                    <th>CIN</th>
+                    <th>Nom </th>
+                    <th>Contact</th>
+                    <th>Qualification</th>
+                    <th>Email</th>
+                    <th></th>
+                    <?php if ($_SESSION['auth'] == "admin"): ?>
+                        <th></th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($query as $data): ?>
+                    <tr>
+                        <td>
+                            <div>
+                                <img src="../assets/uploads/<?= $data["photo"] ?>" class="img-fluid" alt="PDP" width="40px" height="40px">
+                            </div>
+                        </td>
+                        <td><?= $data["cin"] ?></td>
+                        <td><?= $data["prenom"] ?></td>
+                        <td><?= $data["telephone"] ?></td>
+                        <td><?= $data["qualif"] ?></td>
+                        <td><?= $data["email"] ?></td>
+
+                        <?php if ($_SESSION['auth'] == "membre") : ?>
+                        <td>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#modalcli" onclick="updateForm(<?= $data['cin'] ?>)">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                        <?php endif; ?>
+                        <?php if ($_SESSION['auth'] == "admin"): ?>
+                        <td>
+                            <a href="api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>" class="text-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Formulaire inscription et modification personnel  -->
     <div class="modal fade " id="modalcli" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
@@ -145,88 +213,6 @@
         </div>
     </div>
 
-
-    <div class="page-wrapper">
-        <div class="bg-light text-dark d-flex align-items-center justify-content-between">
-            <div>
-                <h2 style="text-align:center;" class="p-3">Information sur les personnels</h2>
-            </div>
-            <?php if ($_SESSION['auth'] == "admin"): ?>
-                <div class="text-right upgrade-btn m-3">
-                    <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalcli"
-                        class="btn btn-info text-white" data-toggle="modal" onclick="resetForm()"><i
-                            class="fa fa-user-plus p-2"></i>Nouveau personnel</a>
-                </div>
-            <?php endif; ?>
-        </div>
-        <div class="container-fluid d-flex flex-column justify-content-between">
-            <div class="row">
-                <!-- column -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="table-responsive" style="position: relative; max-height: 500px;">
-                            <?php if (isset($_GET["message"])): ?>
-                                <?= "<script> setTimeout(() => {document.querySelector('.alert').remove(); document.location.href = '../views/members.php?membre=active';}, 1500);</script>"; ?>
-                                <div class="alert alert-danger">Le CIN ou le numero telephone ou l'email existe deja</div>
-                            <?php endif ?>
-                            <table id="listPersonnel" class="table v-middle">
-                                <thead style="position:sticky; top:0;">
-                                    <tr>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Photo</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">CIN</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Nom et prénom </th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">N° téléphone</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Qualification</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Email</th>
-                                        <th class="bg-dark border-top-0 p-2 text-light">Modification</th>
-                                        <?php if ($_SESSION['auth'] == "admin"): ?>
-                                            <th class="bg-dark border-top-0 p-2 text-light">Suppression</th>
-                                        <?php endif; ?>
-                                    </tr>
-                                </thead>
-                                <tbody id="rows">
-                                    <?php foreach ($query as $data): ?>
-                                        <tr>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <img src="../assets/uploads/<?= $data["photo"] ?>" alt="" width="40px"
-                                                    height="40px">
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <?= $data["cin"] ?>
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <?= $data["nom"] . " " . $data["prenom"] ?>
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <?= $data["telephone"] ?>
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <?= $data["qualif"] ?>
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <?= $data["email"] ?>
-                                            </td>
-                                            <td style="padding-top:10px; padding-bottom:10px">
-                                                <a class="btn btn-success btnTab" data-bs-toggle="modal"
-                                                    data-bs-target="#modalcli" onclick="updateForm(<?= $data['cin'] ?>)"><i
-                                                        class="fa fa-edit"></i></a>
-                                            </td>
-                                            <?php if ($_SESSION['auth'] == "admin"): ?>
-                                                <td style="padding-top:10px; padding-bottom:10px">
-                                                    <a href="../api/delete/deleteMembre.php?cin=<?= $data["cin"] ?>"
-                                                        class="btn btn-danger btnTab"><i class="fa fa-trash"></i></a>
-                                                </td>
-                                            <?php endif; ?>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="../js/controls.js"></script>
     <script>
         imageFile = null;

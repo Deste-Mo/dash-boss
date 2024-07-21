@@ -15,10 +15,10 @@
         case "/clients":
             require view("clients");
             break;
-        case "/members?membre=active":
+        case "/members":
             require view("members");
             break;  
-        case "/notification?notification=active":
+        case "/notification":
             require view("notification");
             break;
         case "/projets":
@@ -54,4 +54,5 @@
     } else {
         header("HTTP/1.0 404 Not Found");
         include view("404");
+        exit();
     }

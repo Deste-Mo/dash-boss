@@ -2,11 +2,8 @@
     if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
         header("location: /signup");
     }
-    include 'api/read/listesTaches.php';
     include 'api/read/listesProjets.php';
-
-    require 'api/read/listesComment.php';
-
+    include 'api/read/listesTaches.php';
 ?>
 
 <!DOCTYPE html>

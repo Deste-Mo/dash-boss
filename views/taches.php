@@ -1,14 +1,17 @@
 <?php
-	require 'api/db.php'; // Connexion à la base de données
-	require 'api/read/listesTaches.php'; // Fonction pour récupérer les tâches
-
     if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
         header("location: /signup");
     }
-	$projectId = isset($_GET['tache']) ? (int)$_GET['tache'] : 0;
-	if ($projectId <= 0) {
-		die("ID du projet invalide");
+    include 'api/read/listesTask.php';
+    include 'api/read/listesTaches.php';
+	$id = isset($_GET['projet']) ? $_GET['projet'] : "";
+   
+	if ($id <= 0) {
+		// die("ID du projet invalide");
+		require view("404");
+		exit;
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +20,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Das</title>
+	<title>Listes des Tâches</title>
 	<?php 
         require 'components/forall/head.php';
       ?>

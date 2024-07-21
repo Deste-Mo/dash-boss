@@ -1,5 +1,4 @@
 <?php
-    require "api/db.php";
     if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
         header("location: /signup");
     }
@@ -8,6 +7,7 @@
     $query = $conn->query("SELECT * FROM personnel");
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +35,9 @@
 				<div id="overview" class="tab-pane active"  >
 					<div class="content" >
 						<div class="content-wrapper">
-							<?php 
-								require 'components/pages/members.php';
-							?>
+						<?php 
+							require 'components/pages/members.php';
+						?>
 						</div>  
 					<!-- /content-wrapper-->
 					</div>
