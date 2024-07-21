@@ -27,11 +27,14 @@
     } 
 
     function getTask($conn, $projectId, $rech) {
-        $sql = "SELECT *
-                FROM tache 
-                INNER JOIN personnel ON tache.cin = personnel.cin 
-                WHERE tache_nom LIKE '%".$rech."%' AND tache.id_projet = ? 
-                ORDER BY tache.tache_id DESC";
+        $sql = "
+            SELECT tache.*, DATE(tache.dateDeb) as dateCom ,personnel.nom,personnel.prenom 
+                FROM tache LEFT JOIN personnel 
+                on  tache.cin = personnel.cin 
+            WHERE tache_nom LIKE '%".$rech."%' 
+            AND id_projet = ? 
+            ORDER BY tache.tache_id DESC
+        ";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$projectId]);
 

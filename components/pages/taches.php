@@ -139,7 +139,7 @@
                 <?php endforeach; ?>
                 <?php else : ?>
                 <tr>
-                    <td colspan="8" class="text-center">Pas des tâches disponibles</td>
+                    <td colspan="8" class="text-center">Tâche introuvable</td>
                 </tr>
                 <?php endif ; ?>
 
@@ -217,7 +217,7 @@
         console.log(cin)
         $.ajax({
             type: "POST",
-            url: "../api/update/taskPersonnal.php",
+            url: "api/update/taskPersonnal.php",
             data: {
                 idToClear: num,
                 cin: cin

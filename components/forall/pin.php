@@ -33,38 +33,38 @@
                         <i class="fa fa-fw fa-circle"></i>
                     </span>
                 </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">Alerts:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">9:00 AM</span>
-                            <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-danger">
-                                <strong>
-                                    <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">9:45 AM</span>
-                            <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">15:21 AM</span>
-                            <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">Voir toutes les alertes</a>
-                    </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">Alerts:</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <span class="text-success">
+                            <strong>
+                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                        </span>
+                        <span class="small float-right text-muted">9:00 AM</span>
+                        <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <span class="text-danger">
+                            <strong>
+                                <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+                        </span>
+                        <span class="small float-right text-muted">9:45 AM</span>
+                        <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <span class="text-success">
+                            <strong>
+                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                        </span>
+                        <span class="small float-right text-muted">15:21 AM</span>
+                        <div class="dropdown-message small">Il s'agit d'un message de réponse de serveur automatisé. Tous les systèmes sont en ligne.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#">Voir toutes les alertes</a>
+                </div>
             </li>
 
             <!-- Logout -->

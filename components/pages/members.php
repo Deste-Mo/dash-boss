@@ -1,76 +1,3 @@
-<style>
-    .modal-content,
-    .btnTab {
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .form-control {
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-
-    .btn-primary {
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-
-    .btnTab {
-        transition: 0.3s ease-in-out
-    }
-
-    .btnTab:hover {
-        transform: scale(1.05);
-    }
-
-    .btn-secondary {
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        transform: scale(1.05);
-    }
-
-    .form-control.error {
-        border-color: red;
-        color: red;
-    }
-
-    .erreur {
-        color: red;
-    }
-
-    #listPersonnel {
-        width: 100%;
-        text-align: center;
-    }
-
-    thead {
-        background: #cecece;
-        position: sticky;
-        top: 0;
-    }
-</style>
 
 <div class="container-fluid">
     <!--======================================================  Content  ====================================================-->
@@ -79,7 +6,7 @@
             <a href="#">Listes des employés</a>
             <?php if ($_SESSION['auth'] == "admin") : ?>
                 <a href="#" class="text-right" style="margin-left:100px" data-toggle="modal" onclick="resetForm()" data-bs-toggle="modal" data-bs-target="#modalcli">
-                    <span class="fa fa-user-plus"></span> Nouveau projet
+                    <span class="fa fa-user-plus"></span> Nouveau personnel
                 </a>
             <?php endif; ?>
         </li>
@@ -90,7 +17,7 @@
         <div class="alert alert-danger">Le CIN ou le numero telephone ou l'email existe deja</div>
     <?php endif ?>
     <div class="table-responsive">
-        <table class="table table-hover ">
+        <table class="table table-hover">
             <thead>
                 <tr class="table-primary">
                     <th>Photo</th>
@@ -119,12 +46,14 @@
                         <td><?= $data["qualif"] ?></td>
                         <td><?= $data["email"] ?></td>
 
-                        <?php if ($_SESSION['auth'] == "membre") : ?>
+                        <?php if ($_SESSION["name"] == $data["nom"]." ".$data["prenom"] || $_SESSION["name"] == "admin") : ?>
                         <td>
                             <a href="" data-bs-toggle="modal" data-bs-target="#modalcli" onclick="updateForm(<?= $data['cin'] ?>)">
                                 <i class="fa fa-edit"></i>
                             </a>
                         </td>
+                        <?php else : ?>
+                        <td></td>
                         <?php endif; ?>
                         <?php if ($_SESSION['auth'] == "admin"): ?>
                         <td>
@@ -153,6 +82,8 @@
                 </div>
                 <div class="modal-body">
                     <br>
+                    <span class="erreur"></span>
+
                     <label>CIN</label>
                     <input type="text" class="form-control" require name="cin" id="cin">
                     <span class="erreur"></span>
@@ -171,7 +102,7 @@
                     <span class="erreur"></span>
                     <br>
                     <label>Qualification</label>
-                    <select required class="form-select" name="qualif" id="qualif">
+                    <select required class="form-control" name="qualif" id="qualif">
                         <option value="Developpeur">Developpeur</option>
                         <option value="AdminSys et Reseau">AdminSys et Reseau</option>
                         <option value="Photographe">Photographe</option>

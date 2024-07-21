@@ -3,7 +3,7 @@
         header("location: /signup");
     }
     include 'api/other/get_search.php';
-	$projectId = isset($_GET['projet']) ? $_GET['projet'] : "";
+	$projectId = isset($_GET['tache']) ? $_GET['projet'] : "";
    
 	if ($projectId <= 0) {
 		// die("ID du projet invalide");
