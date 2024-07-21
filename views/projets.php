@@ -2,8 +2,17 @@
     if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
         header("location: /signup");
     }
-    include 'api/read/listesProjets.php';
-    include 'api/read/listesTaches.php';
+    require 'api/read/listesProjets.php';
+    require 'api/other/get_search.php';
+
+	if(isset($_POST["search"])) {
+        $rech = $_POST["search"];
+    } else {
+        $rech = "";
+    }
+	
+	$projets = getProjets($conn, $rech);
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +21,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Das</title>
+	<title>Projets en cours</title>
 	<?php 
         require 'components/forall/head.php';
       ?>

@@ -1,7 +1,3 @@
-<?php 
-    $rech = isset($_POST['search']) ? $_POST['search'] : "";
-    $projets = getProjets($conn, $rech);
-?>
 <div class="container-fluid">
     <!--======================================================  Content  ====================================================-->
     <ol class="breadcrumb">
@@ -30,6 +26,7 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if (!empty($projets)): ?>
                 <?php
                     foreach ($projets as $pr) :
                         $datep1 = date_create($pr['dateCom']);
@@ -42,8 +39,6 @@
                         $perc = getPercent($conn, $pr['N_pro']);
                     ?>
                 <tr>
-                    <?php if (!empty($projets)): ?>
-
                     <td><?= $pr['nomP'] ?></td>
                     <td><?= $pr['nom'] . " " . $pr['prenom'] ?></td>
                     <td><?= $diffp . "/" . $pr['duree'] . " jours" ?></td>
@@ -68,13 +63,13 @@
                     </td>
                     <?php endif; ?>
                 </tr>
+                <?php endforeach; ?>
                 <?php else : ?>
                 <tr>
                     <td colspan="8" class="text-center">Aucune projet trouvée</td>
                 </tr>
                 <?php endif ; ?>
 
-                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

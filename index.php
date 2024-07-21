@@ -29,30 +29,26 @@
             break;  
         case "/signup":
             require user("signup");
-            break;
-        case "/clients":
-            require user("signup");
-            break;
+            exit;
                 
         default:
-            if (isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {
-                if ($path === "/") {
+            if ($path === "/") {
+                if (isset($_SESSION["auth"]) && !empty($_SESSION["auth"])) {
                     header("Location: /home?home=active");
-                    exit();
-                }
-            } else {
-                if ($path === "/") {
-                    header("Location: /signup");
-                    exit();
-                }
-            }
-            break;
+                    break;
+                } else {
+                    include user("/signup");
+                    // echo "reussi";
+                    exit;
+                }   
+            }    
     }
 
     if (array_key_exists($path, $routes)) {
-        include $routes[$path];
+        require $routes[$path];
+        exit();
     } else {
         header("HTTP/1.0 404 Not Found");
-        include view("404");
+        require view("404");
         exit();
     }

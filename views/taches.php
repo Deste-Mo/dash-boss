@@ -2,16 +2,29 @@
     if (!isset($_SESSION["auth"]) && empty($_SESSION["auth"])) {
         header("location: /signup");
     }
-    include 'api/read/listesTask.php';
-    include 'api/read/listesTaches.php';
-	$id = isset($_GET['projet']) ? $_GET['projet'] : "";
+    include 'api/other/get_search.php';
+	$projectId = isset($_GET['projet']) ? $_GET['projet'] : "";
    
-	if ($id <= 0) {
+	if ($projectId <= 0) {
 		// die("ID du projet invalide");
 		require view("404");
 		exit;
 	}
 
+	
+	if(isset($_POST["search"])) {
+        $rech = $_POST["search"];
+    } else {
+        $rech = "";
+    }
+
+	$taches = getTask($conn, $projectId, $rech);
+    
+    $query = $conn->prepare("SELECT * FROM projet WHERE N_pro = ?");
+
+	$query->execute([$projectId]);
+
+	$tache_name = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +33,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Listes des Tâches</title>
+	<title>Projet : <?php echo $tache_name["nomP"]; ?></title>
 	<?php 
         require 'components/forall/head.php';
       ?>

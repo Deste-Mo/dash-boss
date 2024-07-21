@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <title>Signup</title>
     <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/sign.css">
+    <link rel="stylesheet" href="../../css/sign.css">
     <link rel="shortcut icon" href="assets/images/logo/logo.png" type="image/x-icon">
 </head>
 <body>

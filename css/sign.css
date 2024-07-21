@@ -7,6 +7,10 @@
 	font-family: Raleway, sans-serif;
 }
 
+body, html {
+	height: 100%;
+}
+
 body {
 	background: linear-gradient(90deg, #C7C5F4, rgb(9, 179, 236));		
 }
@@ -15,7 +19,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 100vh;
+	max-height: 100vh;
 }
 
 .screen {		

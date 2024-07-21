@@ -1,12 +1,8 @@
-<?php
-    $projets = getTachesByProjectId($conn, $id);
-?>
-
 <div class="container-fluid">
     <!--======================================================  Content  ====================================================-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item text-right">
-            <a href="#">Liste des tâches pour le projet ID <?= htmlspecialchars($id) ?></a>
+            <a href="#">Liste des tâches pour le projet <?= htmlspecialchars($tache_name["nomP"]) ?></a>
             <?php if ($_SESSION['auth'] == "admin") : ?>
                 <a href="#" class="text-right" style="margin-left:100px" for="action" data-bs-toggle="modal" data-bs-target="#modalTache">
                     <span>+</span> Nouvelle tâche
@@ -15,7 +11,7 @@
         </li>
     </ol>
 
-    <!-- Modal Nouveau Projet  -->
+    <!-- Modal Nouvelle tache  -->
     <div class="modal fade" id="modalTache" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <form method="POST" class="modal-content" action="../api/create/nouveauTache.php">
@@ -74,11 +70,12 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if (!empty($taches)): ?>
+
                 <?php
                     $i = 1;
                     // $k = $pr['N_pro'];
-                    $taches = getTacheByProj($conn, $k);
-                    foreach ($projets as $u) :
+                    foreach ($taches as $u) :
                         $date1 = date_create($u['dateCom']);
                         $date = new DateTime($u['dateCom']);
                         $date2 = date_create();
@@ -87,68 +84,65 @@
                         $res = $duree - $diff;
                         $fin = $date->add(new DateInterval('P' . $duree . 'D'));
                 ?>
-                    <?php if (isset($projets)): ?>
-                    <tr>
+                <tr>
+                    <td>
+                        <?= $u['tache_nom'] ?>
+                    </td>
+                    <td>
+                        <?= $u['nom'] . " " . $u['prenom'] ?>
+                    </td>
+                    <td>
+                        <?= $diff . "/" . $u['duree'] . " jours" ?>
+                    </td>
+                    <td>
+                        <?= $fin->format('d/m/y') ?>
+                    </td>
+                    <td>
+                        <?php if ($u['etat'] === 'E') { ?>
+                            <div class="spinner-border text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        <?php } else if ($u['etat'] === 'F') { ?>
+                            Fini
+                        <?php } else { ?>
+                            Libre
+                        <?php } ?>
+                    </td>
+                    <?php if ($_SESSION['auth'] == "membre") : ?>
                         <td>
-                            <?= $u['tache_nom'] ?>
+                            <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
+                                <button class="btn btn-primary" type="button" onclick='affectPersonnal(<?= $u["tache_id"] ?>, <?= $_SESSION["cin"] ?>)'><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <?php endif; ?>
                         </td>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['name'] == $u['nom'] . " " . $u['prenom'] && $_SESSION['auth'] == "membre") : ?>
                         <td>
-                            <?= $u['nom'] . " " . $u['prenom'] ?>
+                            <?php if ($u['etat'] === 'E') : ?>
+                                <button class="btn btn-success" onclick="clearTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                            <?php endif; ?>
                         </td>
-                        <td>
-                            <?= $diff . "/" . $u['duree'] . " jours" ?>
-                        </td>
-                        <td>
-                            <?= $fin->format('d/m/y') ?>
-                        </td>
-                        <td>
-                            <?php if ($u['etat'] === 'E') { ?>
-                                <div class="spinner-border text-secondary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            <?php } else if ($u['etat'] === 'F') { ?>
-                                Fini
-                            <?php } else { ?>
-                                Libre
-                            <?php } ?>
-                        </td>
-                        <?php if ($_SESSION['auth'] == "membre") : ?>
-                            <td>
-                                <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
-                                    <button class="btn btn-primary" type="button" onclick='affectPersonnal(<?= $u["tache_id"] ?>, <?= $_SESSION["cin"] ?>)'><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                <?php endif; ?>
-                            </td>
-                        <?php endif; ?>
-                        <?php if ($_SESSION['name'] == $u['nom'] . " " . $u['prenom'] && $_SESSION['auth'] == "membre") : ?>
-                            <td>
-                                <?php if ($u['etat'] === 'E') : ?>
-                                    <button class="btn btn-success" onclick="clearTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                <?php endif; ?>
-                            </td>
-                        <?php endif; ?>
+                    <?php endif; ?>
 
-                        <?php if ($_SESSION['auth'] == "admin") : ?>
-                            <td>
-                                <?php if ($u['etat'] === 'E') : ?>
-                                    <button class="btn btn-secondary" onclick="annulerTask(<?= $u['tache_id'] ?>,<?= $res ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-times" aria-hidden="true"></i></button>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
-                                    <button class="btn btn-danger" onclick="deleteTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                <?php endif; ?>
-                            </td>
-                        <?php endif; ?>
-                    </tr>
-                    <?php endif ; ?>
-                    <?php if (empty($projets)) : ?>
-                    <tr>
-                        <td colspan="8" class="text-center">
-                            Pas des tâches disponibles
+                    <?php if ($_SESSION['auth'] == "admin") : ?>
+                        <td>
+                            <?php if ($u['etat'] === 'E') : ?>
+                                <button class="btn btn-secondary" onclick="annulerTask(<?= $u['tache_id'] ?>,<?= $res ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            <?php endif; ?>
                         </td>
-                    </tr>
-                    <?php endif ; ?>
+                        <td>
+                            <?php if ($u['etat'] !== 'E' && $u['etat'] !== 'F') : ?>
+                                <button class="btn btn-danger" onclick="deleteTask(<?= $u['tache_id'] ?>, <?= $pr['N_pro'] ?>)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
                 <?php endforeach; ?>
+                <?php else : ?>
+                <tr>
+                    <td colspan="8" class="text-center">Pas des tâches disponibles</td>
+                </tr>
+                <?php endif ; ?>
+
             </tbody>
         </table>
     </div>
