@@ -55,13 +55,18 @@
                     </ul>
                     <?php else: ?>
                     <a href="/projets?projet=active" class="<?php if (isset($_GET["projet"])) echo 'custom-active'; ?>">
-                        <i class="fa fa-list" aria-hidden="true"></i> Liste des projets
+                        <i class="fa fa-list" aria-hidden="true"></i> Projets en cours
                     </a>
                     <?php endif; ?>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Ajouter produit
+                        <i class="fa fa-plus" aria-hidden="true"></i> Projets en attente
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Projets FIni
                     </a>
                 </li>
             </ul>
@@ -78,12 +83,6 @@
 
         <li class="menu-heading">Paramètres</li>
 
-        <li id="menu-item5">
-            <a data-toggle="tab" href="#projects">
-                <i class="fa fa-table fa-lg"></i> Stock
-            </a>
-        </li>
-
         <li id="menu-item6">
             <a href="/members?membre=active"
                 class="nav-link text-white <?php if (isset($_GET["membre"])) echo 'active'; ?>">
@@ -94,12 +93,6 @@
         <li id="menu-item7">
             <a data-toggle="tab" href="#analytics">
                 <i class="fa fa-line-chart fa-lg"></i> Statistiques
-            </a>
-        </li>
-
-        <li id="menu-item8">
-            <a href="#invoices">
-                <i class="fa fa-files fa-lg"></i> Caisses
             </a>
         </li>
     </ul>
